@@ -1,5 +1,5 @@
 #!/bin/bash
-PROGRAM="./avaliaSucessor"
+PROGRAM="./avaliaExpande"
 if [ "$1" = "" ] || [ "$2" = "" ] || [ "$3" = "" ]; then
   INPUT_FILE="./tests/assignmentExample"
   POSITIONX="5"

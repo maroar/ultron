@@ -1,11 +1,15 @@
-#include "Scenario.h"
+#include "PacMaze.h"
+#include <string>  
+
 using namespace std;
 
+string::size_type sz;
+
 int main(int argc, char** argv) {
-  Scenario * scenario = new Scenario(argv[1]);
-  scenario->print();
+  PacMaze * pacMaze = new PacMaze(argv[1], stoi(argv[2], &sz), stoi(argv[3], &sz));
+  pacMaze->printSuccessor();
   
-  delete scenario;
+  delete pacMaze;
   return 0;
 }
 
