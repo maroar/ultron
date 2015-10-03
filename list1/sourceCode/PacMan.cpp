@@ -1,18 +1,18 @@
 #include "PacMan.h"
 
-int PacMan::getX(){
-  return x;
+int PacMan::getRow(){
+  return r;
 }
 
-int PacMan::getY() {
-  return y;
+int PacMan::getColumn() {
+  return c;
 }
 
-void PacMan::moveTo(int nx, int ny) {
-  x = nx;
-  y = ny;
+void PacMan::moveTo(int nr, int nc) {
+  r = nr;
+  c = nc;
 }
 
 void PacMan::print() {
-  cout << "px: " << x << " py: " << y << endl;;
+  cout << "row: " << r << " column: " << c << endl;;
 }

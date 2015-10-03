@@ -1,13 +1,14 @@
 #!/bin/bash
 PROGRAM="./avaliaSucessor"
-if [ "$1" = "" ] || [ "$2" = "" ] || [ "$3" = "" ]; then
-  INPUT_FILE="./tests/assignmentExample"
-  POSITIONX="5"
-  POSITIONY="1"
-else
-  INPUT_FILE=$1
-  POSITIONX=$2
-  POSITIONY=$3
-fi
 
+INPUT_FILE="./tests/assignmentExample"
+POSITIONX="5"
+POSITIONY="1"
+echo -e "$BOLD_GREEN$PROGRAM $INPUT_FILE $POSITIONX $POSITIONY$NO_FORMAT"
+$PROGRAM $INPUT_FILE $POSITIONX $POSITIONY
+
+INPUT_FILE="./tests/mySimpleExample"
+POSITIONX="1"
+POSITIONY="2"
+echo -e "$BOLD_GREEN$PROGRAM $INPUT_FILE $POSITIONX $POSITIONY$NO_FORMAT"
 $PROGRAM $INPUT_FILE $POSITIONX $POSITIONY

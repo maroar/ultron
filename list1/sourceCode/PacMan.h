@@ -7,12 +7,12 @@
 using namespace std;
 
 struct PacMan {
-  int x, y;
+  int r, c;
 
-  int getX();
-  int getY();
-  void moveTo(int nx, int ny);
-  PacMan(int locationX, int locationY) : x(locationX), y(locationY) {};
+  int getRow();
+  int getColumn();
+  void moveTo(int nr, int nc);
+  PacMan(int row, int column) : r(row), c(column) {};
   void print();
 };
 

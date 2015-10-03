@@ -2,11 +2,11 @@
 #define MY_SCENARIO_DEF
 #define GOAL '0'
 
+#include <algorithm>
 #include <fstream>
 #include <iostream>
-#include <string>
 #include <list>
-#include <stdio.h>
+#include <string>
 #include "PacMan.h"
 
 using namespace std;
@@ -26,10 +26,12 @@ typedef enum direction {
 
 struct Move {
   direction d;
-  int        x, y;
-  Move(direction _direction, int cx, int cy) : d(_direction), x(cx), y(cy){}
+  int       r, c;
+
+  Move(direction _direction, int row, int column) : d(_direction), r(row), c(column){}
   string toString();
 };
+
 extern list<Move*>  moves;
 
 struct Goal {
@@ -49,16 +51,15 @@ struct PacMaze {
   PacMan*      pacMan;
   SearchGraph* sg;
   
-  PacMaze(char* infile, int x, int y) : inputFile(infile) {
+  PacMaze(char* infile, int row, int column) : inputFile(infile) {
     readScenario();
     findGoal();
-    pacMan = new PacMan(x, y);
-    successor();
+    pacMan = new PacMan(row, column);
   };
   ~PacMaze();
-  bool canMoveTo(direction d);
+  bool canMoveTo(int x, int y, direction d);
   int  movePacManTo(direction d);
-  int  successor();
+  int  successor(int x, int y);
   void expand();
   void findGoal();
   void print();
@@ -68,34 +69,49 @@ struct PacMaze {
   void readScenario();
   void removePacManFromScenario();
 };
+
+extern PacMaze     *pacMaze;
 // exerc 2
-extern int numNodes;
+struct Node;
+struct SearchGraph;
+
+extern int                 numNodes;
+extern list<pair<int,int>> visited;
+extern list<Node*>         frontier;
+
+void printFrontier();
+bool alreadyVisited(int id);
 
 struct Node {
-  direction d;
-  int cost, x, y, id;
-  list<Node*> frontier;
-  Node *parent;
+  direction   d;
+  int         cost, r, c, id;
+  list<Node*> children;
+  Node        *parent;
 
-  Node(Node* p, int pcost, int cx, int cy, direction _direction) : parent(p), cost(pcost), x(cx), y(cy), d(_direction) {
+  Node(Node* p, int pcost, int row, int column, direction _direction) : parent(p), cost(pcost), r(row), c(column), d(_direction) {
     id = numNodes++;
   };
   ~Node();
-  void expand();
-  void printDot();
+  string toDot();
   string toString();
+  void   expand();
+  void   printChildren();
+  void   printDot();
+  void   removeNodeFromFrontier();
 };
 
 struct SearchGraph {
-  Node *root;
+  Node    *root;
 
-  SearchGraph(int x, int y) {
+  SearchGraph(int row, int column, int initCost) {
     numNodes=0;
-    root = new Node(NULL, 0, x, y, NO_MOVE);
-    root->expand();
+    root = new Node(NULL, initCost, row, column, NO_MOVE);
+    frontier.push_back(root);
   };
   ~SearchGraph();
   void printDot();
 };
+
+extern SearchGraph *sg;
 
 #endif
