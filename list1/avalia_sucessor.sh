@@ -1,4 +1,6 @@
 #!/bin/bash
+BOLD_GREEN="\e[1;92m"
+NO_FORMAT="\e[0m"
 PROGRAM="./avaliaSucessor"
 
 INPUT_FILE="./tests/assignmentExample"

@@ -1,11 +1,19 @@
 #include "PacMaze.h"
+#include <cmath>
 int                 numNodes;
-list<pair<int,int>> visited;
+list<pair<int,int>> explored;
 list<Move*>         moves;
-list<Node*>         frontier;
+list<Node*>         fringe;
 PacMaze             *pacMaze;
 SearchGraph         *sg;
 // helper methods
+bool alreadyVisited(int row, int column) {
+  pair<int,int> targer;
+  targer.first  = row;
+  targer.second = column;
+  return (find(explored.begin(), explored.end(), targer) != explored.end());
+}
+
 string directionToString(direction d) {
   switch(d) {
     case NORTH: return "up";
@@ -16,27 +24,20 @@ string directionToString(direction d) {
   }
 }
 
-void printFrontier() {
+void printFringe() {
   list<Node*>::const_iterator it;
-  for(it = frontier.begin(); it != frontier.end(); ++it) {
+  for(it = fringe.begin(); it != fringe.end(); ++it) {
     cout << (*it)->toString() << " "; 
   }
   cout << endl;
 }
-
-bool alreadyVisited(int row, int column) {
-  pair<int,int> targer;
-  targer.first  = row;
-  targer.second = column;
-  return (find(visited.begin(), visited.end(), targer) != visited.end());
-}
 // Goal methods
-bool Goal::isGoal(int coordX, int coordY) {
-  return (coordX == x) && (coordY == y);
+bool Goal::isGoal(int row, int column) {
+  return (row == r) && (column == c);
 }
 
 void Goal::print() {
-  cout << "row: " << x << " col: " << y << endl;
+  cout << "row: " << r << " col: " << c << endl;
 }
 // Move methods
 string Move::toString() {
@@ -181,10 +182,57 @@ Node::~Node() {
   }
 }
 
+bool Node::operator<(const Node& rhs) {
+  return cost < rhs.cost;
+}
+
+float Node::distanceToGoal() {
+  return sqrt(pow((r - pacMaze->goal->r), 2) + pow((c - pacMaze->goal->c), 2));
+}
+
+void Node::expand(float hcost) {
+  list<Move*>::const_iterator it;
+
+  pacMaze->successor(r, c);
+  for(it = moves.begin(); it != moves.end(); ++it) {
+    children.push_back(new Node(this, cost+1.0+hcost, (*it)->r, (*it)->c, (*it)->d));
+  }
+  explored.push_back(make_pair(r,c));
+}
+
+void Node::printDot() {
+  cout << " n" << id << " [shape=box label=\"" << toDot() << "\"]" << endl;
+  if(parent)
+    cout << " n" << id << " -- n" << parent->id << endl; 
+  list<Node*>::const_iterator iterator;
+  for(iterator = children.begin(); iterator != children.end(); ++iterator) {
+    (*iterator)->printDot();
+  }
+}
+
+void Node::printChildren() {
+  list<Node*>::const_iterator iterator;
+  for(iterator = children.begin(); iterator != children.end(); ++iterator) {
+    cout << (*iterator)->toString() << " "; 
+  }
+  cout << endl;
+}
+
+void Node::removeNodeFromFringe() {
+  list<Node*>::const_iterator it;
+  for(it = fringe.begin(); it != fringe.end(); ++it) {
+    if((*it)->id == id) {
+      fringe.remove(*it);
+      break;
+    } 
+  }
+}
+
 string Node::toDot() {
   string str =  "state: (" + to_string(r) + "," + to_string(c) + ")\\n";
   str += "action: " + directionToString(d) + "\\n";
-  str += "cost: " + to_string(cost);
+  str += "cost: " + to_string(cost) + "\\n";
+  str += "children: " + to_string(children.size());
   return str;
 }
 
@@ -208,57 +256,36 @@ string Node::toString() {
   toReturn += ")";
   return toReturn;
 }
-
-void Node::expand() {
-  if(!alreadyVisited(r, c)) {
-    int numChildren;
-    list<Move*>::const_iterator it;
-    Node *newNode;
-    removeNodeFromFrontier();
-    numChildren = pacMaze->successor(r, c);
-    for(it = moves.begin(); it != moves.end(); ++it) {
-      newNode = new Node(this, cost+1, (*it)->r, (*it)->c, (*it)->d);
-      frontier.push_back(newNode);
-      children.push_back(newNode);
-    }
-    visited.push_back(make_pair(r,c));
-  }
-}
-
-void Node::printDot() {
-  cout << " n" << id << " [shape=box label=\"" << toDot() << "\"]" << endl;
-  if(parent)
-    cout << " n" << id << " -- n" << parent->id << endl; 
-  list<Node*>::const_iterator iterator;
-  for(iterator = children.begin(); iterator != children.end(); ++iterator) {
-    (*iterator)->printDot();
-  }
-}
-
-void Node::printChildren() {
-  list<Node*>::const_iterator iterator;
-  for(iterator = children.begin(); iterator != children.end(); ++iterator) {
-    cout << (*iterator)->toString() << " "; 
-  }
-  cout << endl;
-}
-
-void Node::removeNodeFromFrontier() {
-  list<Node*>::const_iterator it;
-  for(it = frontier.begin(); it != frontier.end(); ++it) {
-    if((*it)->id == id) {
-      frontier.remove(*it);
-      break;
-    } 
-  }
-}
 // SearchGraph
 SearchGraph::~SearchGraph() {
   delete root;
+}
+
+bool SearchGraph::nodeIsGoal(Node *n) {
+  return pacMaze->goal->isGoal(n->r, n->c);
 }
 
 void SearchGraph::printDot() {
   cout << "graph name {" << endl;
   root->printDot();
   cout << "\n}" << endl;
+}
+
+void SearchGraph::solution(Node *n) {
+  list<direction> sol;
+  direction d;
+
+  do {
+    sol.push_back(n->d);
+    n = n->parent;
+  }
+  while(n != NULL);
+
+  sol.pop_back();
+  while(!sol.empty()) {
+    d = sol.back();
+    sol.pop_back();
+    cout << directionToString(d) << " ";
+  }
+  cout << endl;
 }

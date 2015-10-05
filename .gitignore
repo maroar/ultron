@@ -3,4 +3,7 @@
 *.dot
 list1/avaliaSucessor
 list1/avaliaExpande
+list1/avaliaAStar
+list1/avaliaBFS
+list1/avaliaDFS
 teste

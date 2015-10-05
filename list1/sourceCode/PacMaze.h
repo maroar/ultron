@@ -35,10 +35,10 @@ struct Move {
 extern list<Move*>  moves;
 
 struct Goal {
-  int x,y;
+  int r,c;
 
   bool isGoal(int coordX, int coordY);
-  Goal(int coordX, int coordY) : x(coordX), y(coordY) {};
+  Goal(int row, int column) : r(row), c(column) {};
   void print();
 };
 
@@ -60,7 +60,6 @@ struct PacMaze {
   bool canMoveTo(int x, int y, direction d);
   int  movePacManTo(direction d);
   int  successor(int x, int y);
-  void expand();
   void findGoal();
   void print();
   void printScenario();
@@ -76,40 +75,59 @@ struct Node;
 struct SearchGraph;
 
 extern int                 numNodes;
-extern list<pair<int,int>> visited;
-extern list<Node*>         frontier;
+extern list<pair<int,int>> explored;
+extern list<Node*>         fringe;
 
-void printFrontier();
-bool alreadyVisited(int id);
+void printFringe();
+bool alreadyVisited(int row, int column);
 
 struct Node {
   direction   d;
-  int         cost, r, c, id;
+  float       cost;
+  int         r, c, id;
   list<Node*> children;
   Node        *parent;
 
-  Node(Node* p, int pcost, int row, int column, direction _direction) : parent(p), cost(pcost), r(row), c(column), d(_direction) {
+  Node(Node* p, float pcost, int row, int column, direction _direction) : parent(p), cost(pcost), r(row), c(column), d(_direction) {
     id = numNodes++;
   };
   ~Node();
+  bool operator<(const Node& rhs); 
+  float    distanceToGoal();
   string toDot();
   string toString();
-  void   expand();
+  void   expand(float hcost);
   void   printChildren();
   void   printDot();
-  void   removeNodeFromFrontier();
+  void   removeNodeFromFringe();
 };
 
 struct SearchGraph {
   Node    *root;
 
-  SearchGraph(int row, int column, int initCost) {
+  SearchGraph(int row, int column, float initCost) {
     numNodes=0;
     root = new Node(NULL, initCost, row, column, NO_MOVE);
-    frontier.push_back(root);
   };
   ~SearchGraph();
+  bool nodeIsGoal(Node *n);
   void printDot();
+  void solution(Node *n);
+  // bfs
+  Node* bfsRemove();
+  void  bfs();
+  void  bfsInsert(Node *n);
+  void  bfsInsertList(list<Node*>& l);
+  // dfs
+  Node* dfsRemove();
+  void  dfs();
+  void  dfsInsert(Node *n);
+  void  dfsInsertList(list<Node*>& l);
+  // astar
+  Node* astarRemove();
+  void  astar();
+  void  astarInsert(Node *n);
+  void  astarInsertList(list<Node*>& l);
 };
 
 extern SearchGraph *sg;

@@ -1,0 +1,4 @@
+#!/bin/bash
+./avalia_bfs.sh
+./avalia_dfs.sh
+./avalia_astar.sh
