@@ -31,6 +31,13 @@ void printFringe() {
   }
   cout << endl;
 }
+
+string shape(bool v) {
+  if(v)
+    return "box";
+  else
+    return "circle";
+}
 // Goal methods
 bool Goal::isGoal(int row, int column) {
   return (row == r) && (column == c);
@@ -153,12 +160,12 @@ int PacMaze::successor(int x, int y) {
     moves.push_back(new Move(SOUTH, (x+1)%rows, y));
     i++;
   }
-  if(canMoveTo(x, y, EAST)){
-    moves.push_back(new Move(EAST, x, (y+1)%columns));
-    i++;
-  }
   if(canMoveTo(x, y, WEST)){
     moves.push_back(new Move(WEST, x, (y-1)%columns));
+    i++;
+  }
+  if(canMoveTo(x, y, EAST)){
+    moves.push_back(new Move(EAST, x, (y+1)%columns));
     i++;
   }
   return i;
@@ -182,26 +189,22 @@ Node::~Node() {
   }
 }
 
-bool Node::operator<(const Node& rhs) {
-  return cost < rhs.cost;
-}
-
 float Node::distanceToGoal() {
-  return sqrt(pow((r - pacMaze->goal->r), 2) + pow((c - pacMaze->goal->c), 2));
+  return 1/(sqrt(pow((r - pacMaze->goal->r), 2) + pow((c - pacMaze->goal->c), 2)));
 }
 
-void Node::expand(float hcost) {
+void Node::expand() {
   list<Move*>::const_iterator it;
 
   pacMaze->successor(r, c);
   for(it = moves.begin(); it != moves.end(); ++it) {
-    children.push_back(new Node(this, cost+1.0+hcost, (*it)->r, (*it)->c, (*it)->d));
+    children.push_back(new Node(this, cost+1.0, (*it)->r, (*it)->c, (*it)->d));
   }
   explored.push_back(make_pair(r,c));
 }
 
 void Node::printDot() {
-  cout << " n" << id << " [shape=box label=\"" << toDot() << "\"]" << endl;
+  cout << " n" << id << " [shape=" << shape(visited) << " label=\"" << toDot() << "\"]" << endl;
   if(parent)
     cout << " n" << id << " -- n" << parent->id << endl; 
   list<Node*>::const_iterator iterator;
@@ -229,9 +232,11 @@ void Node::removeNodeFromFringe() {
 }
 
 string Node::toDot() {
-  string str =  "state: (" + to_string(r) + "," + to_string(c) + ")\\n";
+  string str =  "state: (" + to_string(id) + ")\\n";
+  str += "state: (" + to_string(r) + "," + to_string(c) + ")\\n";
   str += "action: " + directionToString(d) + "\\n";
   str += "cost: " + to_string(cost) + "\\n";
+  str += "hcost: " + to_string(hcost) + "\\n";
   str += "children: " + to_string(children.size());
   return str;
 }

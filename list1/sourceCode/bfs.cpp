@@ -19,7 +19,7 @@ void SearchGraph::bfs() {
     }
 
     if(!alreadyVisited(n->r, n->c)) {
-      n->expand(0);
+      n->expand();
       bfsInsertList(n->children);
     }
   }

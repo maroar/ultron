@@ -82,21 +82,23 @@ void printFringe();
 bool alreadyVisited(int row, int column);
 
 struct Node {
+  bool        visited;
   direction   d;
-  float       cost;
+  float       cost, hcost;
   int         r, c, id;
   list<Node*> children;
   Node        *parent;
 
   Node(Node* p, float pcost, int row, int column, direction _direction) : parent(p), cost(pcost), r(row), c(column), d(_direction) {
     id = numNodes++;
+    hcost = distanceToGoal() + cost;
+    visited = false;
   };
   ~Node();
-  bool operator<(const Node& rhs); 
-  float    distanceToGoal();
+  float  distanceToGoal();
   string toDot();
   string toString();
-  void   expand(float hcost);
+  void   expand();
   void   printChildren();
   void   printDot();
   void   removeNodeFromFringe();

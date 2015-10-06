@@ -19,7 +19,7 @@ void SearchGraph::dfs() {
     }
 
     if(!alreadyVisited(n->r, n->c)) {
-      n->expand(0);
+      n->expand();
       dfsInsertList(n->children);
     }
   }

@@ -16,7 +16,7 @@ echo -e "$BOLD_GREEN$PROGRAM $INPUT_FILE $ROW $COLUMN$NO_FORMAT"
 $PROGRAM $INPUT_FILE $ROW $COLUMN > mySimpleExample.astar.dot
 
 INPUT_FILE="./tests/myOtherExample"
-ROW="3"
-COLUMN="7"
+ROW="5"
+COLUMN="5"
 echo -e "$BOLD_GREEN$PROGRAM $INPUT_FILE $ROW $COLUMN$NO_FORMAT"
 $PROGRAM $INPUT_FILE $ROW $COLUMN > myOtherExample.astar.dot
