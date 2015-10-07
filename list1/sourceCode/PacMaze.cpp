@@ -1,5 +1,6 @@
 #include "PacMaze.h"
 #include <cmath>
+int                 expandCount;
 int                 numNodes;
 list<pair<int,int>> explored;
 list<Move*>         moves;
@@ -190,12 +191,14 @@ Node::~Node() {
 }
 
 float Node::distanceToGoal() {
-  return 1/(sqrt(pow((r - pacMaze->goal->r), 2) + pow((c - pacMaze->goal->c), 2)));
+  float x = r - pacMaze->goal->r;
+  float y = c - pacMaze->goal->c;
+  return sqrt(x*x + y*y);
 }
 
 void Node::expand() {
   list<Move*>::const_iterator it;
-
+  expandAt = expandCount++;
   pacMaze->successor(r, c);
   for(it = moves.begin(); it != moves.end(); ++it) {
     children.push_back(new Node(this, cost+1.0, (*it)->r, (*it)->c, (*it)->d));
@@ -232,12 +235,12 @@ void Node::removeNodeFromFringe() {
 }
 
 string Node::toDot() {
-  string str =  "state: (" + to_string(id) + ")\\n";
+  string str =  "id: (" + to_string(id) + ")\\n";
+  str += "expand: (" + to_string(expandAt) + ")\\n";
   str += "state: (" + to_string(r) + "," + to_string(c) + ")\\n";
   str += "action: " + directionToString(d) + "\\n";
   str += "cost: " + to_string(cost) + "\\n";
   str += "hcost: " + to_string(hcost) + "\\n";
-  str += "children: " + to_string(children.size());
   return str;
 }
 

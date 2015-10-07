@@ -47,8 +47,8 @@ void SearchGraph::astarInsertList(list<Node*>& l) {
 
 Node* SearchGraph::astarRemove() {
   if(!open.empty()) {
-    Node* n = open.back();
-    open.pop_back(); 
+    Node* n = open.front();
+    open.pop_front(); 
     return n;
   }
   else

@@ -74,6 +74,7 @@ extern PacMaze     *pacMaze;
 struct Node;
 struct SearchGraph;
 
+extern int                 expandCount;
 extern int                 numNodes;
 extern list<pair<int,int>> explored;
 extern list<Node*>         fringe;
@@ -85,7 +86,7 @@ struct Node {
   bool        visited;
   direction   d;
   float       cost, hcost;
-  int         r, c, id;
+  int         r, c, id, expandAt;
   list<Node*> children;
   Node        *parent;
 
@@ -108,7 +109,8 @@ struct SearchGraph {
   Node    *root;
 
   SearchGraph(int row, int column, float initCost) {
-    numNodes=0;
+    numNodes = 0;
+    expandCount = 0;
     root = new Node(NULL, initCost, row, column, NO_MOVE);
   };
   ~SearchGraph();
