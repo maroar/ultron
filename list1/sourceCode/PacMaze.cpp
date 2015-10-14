@@ -87,6 +87,7 @@ int PacMaze::movePacManTo(direction d) {
       case SOUTH: pacMan->moveTo((pacMan->getRow()+1)%rows, pacMan->getColumn()); break;
       case EAST:  pacMan->moveTo(pacMan->getRow(), (pacMan->getColumn()+1)%columns); break;
       case WEST:  pacMan->moveTo(pacMan->getRow(), (pacMan->getColumn()-1)%columns); break;
+      default:    break;
     }
     return successor(pacMan->getRow(), pacMan->getColumn());
   }
