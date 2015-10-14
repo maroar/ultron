@@ -19,8 +19,8 @@ void SearchGraph::astar() {
     }
 
     if(nodeIsGoal(n)) {
-      //return solution(n);
-      return printDot();
+      return solution(n);
+      //return printDot();
     }
 
     if(!alreadyVisited(n->r, n->c)) {

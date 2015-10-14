@@ -17,10 +17,10 @@ bool alreadyVisited(int row, int column) {
 
 string directionToString(direction d) {
   switch(d) {
-    case NORTH: return "up";
-    case SOUTH: return "down";
-    case EAST:  return "right";
-    case WEST:  return "left";
+    case NORTH: return "acima";
+    case SOUTH: return "abaixo";
+    case EAST:  return "direita";
+    case WEST:  return "esquerda";
     default:    return "null";
   }
 }
@@ -252,7 +252,7 @@ string Node::toString() {
   toReturn += ",";
   toReturn += to_string(c);
   toReturn += ";";
-  toReturn += to_string(cost);
+  toReturn += to_string(int(cost));
   toReturn += ";";
   if(parent) {
     toReturn += to_string(parent->r);
