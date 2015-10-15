@@ -21,6 +21,8 @@ void SearchGraph::bfs() {
     if(!alreadyVisited(n->r, n->c)) {
       n->expand();
       bfsInsertList(n->children);
+    } else {
+      n->visited = true;
     }
   }
 }

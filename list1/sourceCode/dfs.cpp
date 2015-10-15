@@ -21,6 +21,8 @@ void SearchGraph::dfs() {
     if(!alreadyVisited(n->r, n->c)) {
       n->expand();
       dfsInsertList(n->children);
+    } else {
+      n->visited = true;
     }
   }
 }

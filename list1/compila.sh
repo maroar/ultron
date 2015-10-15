@@ -1,7 +1,7 @@
 #!/bin/bash
 BOLD_YELLOW="\e[1;93m"
 NO_FORMAT="\e[0m"
-COMPILER="clang++ -std=c++11 "
+COMPILER="g++ -std=c++11 "
 SOURCE_CODE_FOLDER="./sourceCode"
 # compile the code
 # avaliaSucessor.cpp

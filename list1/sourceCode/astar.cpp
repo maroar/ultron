@@ -26,8 +26,7 @@ void SearchGraph::astar() {
     if(!alreadyVisited(n->r, n->c)) {
       n->expand();
       astarInsertList(n->children);
-    }
-    else {
+    } else {
       n->visited = true;
     }
   }

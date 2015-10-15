@@ -283,6 +283,9 @@ void SearchGraph::printDot() {
 void SearchGraph::solution(Node *n) {
   list<direction> sol;
   direction d;
+  float cost = n->cost;
+  cout << "cost:           " << cost << endl;
+  cout << "expanded nodes: " << expandCount << endl;
 
   do {
     sol.push_back(n->d);
