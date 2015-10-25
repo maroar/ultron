@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <fstream>
+#include <functional>
 #include <iostream>
 #include <list>
 #include <string>
@@ -77,7 +78,6 @@ struct SearchGraph;
 extern int                 expandCount;
 extern int                 numNodes;
 extern list<pair<int,int>> explored;
-extern list<Node*>         fringe;
 
 void printFringe();
 bool alreadyVisited(int row, int column);

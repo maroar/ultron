@@ -1,8 +1,8 @@
 #include "PacMaze.h"
-#include <queue>
-list<Node*> open;
+#include <vector>
+vector<Node*> open;
 bool compare(Node* n1, Node* n2) {
-  return n1->hcost < n2->hcost;
+  return n1->hcost > n2->hcost;
 }
 // exerc 3
 void SearchGraph::astar() {
@@ -33,21 +33,24 @@ void SearchGraph::astar() {
 }
 
 void SearchGraph::astarInsert(Node *n) {
-  open.push_back(n);
+  open.push_back(n); 
+  push_heap(open.begin(),open.end());
+  make_heap(open.begin(), open.end(), compare); 
 }
 
 void SearchGraph::astarInsertList(list<Node*>& l) {
   list<Node*>::const_iterator it;
   for(it = l.begin(); it != l.end(); ++it) {
-    open.push_back(*it);
+    astarInsert(*it);
   }
-  open.sort(compare);
 }
 
 Node* SearchGraph::astarRemove() {
   if(!open.empty()) {
-    Node* n = open.front();
-    open.pop_front(); 
+    pop_heap(open.begin(),open.end());
+    Node* n = open.back(); 
+    open.pop_back();
+    make_heap(open.begin(), open.end(), compare); 
     return n;
   }
   else

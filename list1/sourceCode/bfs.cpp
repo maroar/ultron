@@ -1,5 +1,6 @@
 #include "PacMaze.h"
 // exerc 3
+list<Node*> fringe;
 void SearchGraph::bfs() {
   Node* n;
 

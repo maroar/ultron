@@ -4,7 +4,6 @@ int                 expandCount;
 int                 numNodes;
 list<pair<int,int>> explored;
 list<Move*>         moves;
-list<Node*>         fringe;
 PacMaze             *pacMaze;
 SearchGraph         *sg;
 // helper methods
@@ -23,14 +22,6 @@ string directionToString(direction d) {
     case WEST:  return "esquerda";
     default:    return "null";
   }
-}
-
-void printFringe() {
-  list<Node*>::const_iterator it;
-  for(it = fringe.begin(); it != fringe.end(); ++it) {
-    cout << (*it)->toString() << " "; 
-  }
-  cout << endl;
 }
 
 string shape(bool v) {
@@ -223,16 +214,6 @@ void Node::printChildren() {
     cout << (*iterator)->toString() << " "; 
   }
   cout << endl;
-}
-
-void Node::removeNodeFromFringe() {
-  list<Node*>::const_iterator it;
-  for(it = fringe.begin(); it != fringe.end(); ++it) {
-    if((*it)->id == id) {
-      fringe.remove(*it);
-      break;
-    } 
-  }
 }
 
 string Node::toDot() {
