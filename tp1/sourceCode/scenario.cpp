@@ -27,10 +27,3 @@ void scenario::readScenario() {
     }
   }
 }
-
-int main() {
-  scenario sc;
-  sc.spots[7]->printNeighbors();
-
-  return 0;
-}
