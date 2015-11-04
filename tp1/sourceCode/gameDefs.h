@@ -19,15 +19,24 @@ struct oldMove {
   bool none;
   string player, stage;
   int row, column;
+
+  /*bool operator==(const oldMove& m) const {
+   return (none == none) || 
+     ( (player.compare(m.player)==0) );
+  }*/
 };
 
-char      board[7][7];
-color     mColor;
-gameStage currentStage;
-int       numberOfPieces;
-oldMove   move[3];
-string    colorStr, stageStr;
+extern color     mcolor;
+extern gameStage currentStage;
+extern int       numberOfPieces;
 
+void printBoard();
+void printInput();
+void printMove(unsigned index);
+void readBoard();
 void readInputFile();
+void readMove(unsigned index);
+void setDown();
+void setUpVariables();
 
 #endif
