@@ -1,6 +1,7 @@
 #ifndef MY_GAME_DEFS
 #define MY_GAME_DEFS
 #include <string>
+#include "scenario.h"
 
 using namespace std;
 
@@ -28,6 +29,7 @@ struct oldMove {
 
 extern color     mcolor;
 extern gameStage currentStage;
+extern int       numBlack, numWhite;
 extern int       numberOfPieces;
 
 void printBoard();
@@ -37,6 +39,7 @@ void readBoard();
 void readInputFile();
 void readMove(unsigned index);
 void setDown();
+void setUp();
 void setUpVariables();
 
 #endif

@@ -5,8 +5,8 @@
 
 struct piece {
   unsigned    id;
-  pspot       _spot;
-  list<pspot> moves;
+  pointerSpot pspot;
+  list<pointerSpot> moves;
 
   piece();
   void successor();

@@ -5,11 +5,11 @@
 #include "piece.h"
 #include <vector>
 
-struct scenario {
-  vector<pspot> spots;
+extern spot***   mills;
+extern vector<pointerSpot> scenario;
+extern unsigned            spotcount;
 
-  scenario();
-  ~scenario();
-  void readScenario();
-};
+void createScenario(char**);
+void setDownScenario();
+void setUpScenario();
 #endif

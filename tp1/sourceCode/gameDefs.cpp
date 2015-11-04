@@ -4,7 +4,7 @@
 char      board[7][7];
 color     mcolor;
 gameStage currentStage;
-int       numberOfPieces;
+int       numberOfPieces, numBlack, numWhite;
 oldMove   oldmove[3];
 string    colorStr, stageStr;
 
@@ -41,9 +41,17 @@ void printMove(unsigned index) {
 }
 
 void readBoard() {
+  char c;
   for(int i = 0; i < 7; i++) {
     for(int j = 0; j < 7; j++) {
-      cin >> board[i][j];
+      cin >> c;
+      board[i][j] = c;
+      if(c == 'B') {
+        numBlack++;
+      }
+      else if(c == 'W') {
+        numWhite++;
+      }
     }
   }
 }
@@ -75,7 +83,12 @@ void readMove(unsigned index) {
 }
 
 void setDown() {
-  //
+  setDownScenario();
+}
+
+void setUp() {
+  numBlack = numWhite = 0;
+  setUpScenario();
 }
 
 void setUpVariables() {
@@ -95,4 +108,6 @@ void setUpVariables() {
   else {
     mcolor = black;
   }
+  
+  createScenario(board);
 }

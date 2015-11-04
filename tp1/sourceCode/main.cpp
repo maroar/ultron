@@ -6,6 +6,7 @@
 #include "placement.h"
 
 int main(int argc, char** argv) {
+  setUp();
   readInputFile(); 
   //printInput();
   switch(currentStage) {

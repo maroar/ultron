@@ -1,7 +1,7 @@
 #include <iostream>
 #include "spot.h"
 // spot
-spot::spot(unsigned _id) : id(_id), occupied(false){
+spot::spot(unsigned row, unsigned column, unsigned identifier) : r(row), c(column), id(identifier), occupied(false){
 }
 
 bool spot::isFree(){
@@ -10,6 +10,10 @@ bool spot::isFree(){
 
 bool spot::isOccupied(){
   return occupied;
+}
+
+void spot::addNeighbor(pointerSpot n) {
+  neighbors.push_back(n);
 }
 
 void spot::printNeighbors(){
