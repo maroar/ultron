@@ -4,8 +4,8 @@
 #include "spot.h"
 
 struct piece {
-  unsigned    id;
-  pointerSpot pspot;
+  unsigned          id;
+  pointerSpot       pspot;
   list<pointerSpot> moves;
 
   piece();

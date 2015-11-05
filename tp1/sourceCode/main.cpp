@@ -1,14 +1,22 @@
 #include <string>
 #include <iostream>
-#include "gameDefs.h"
+#include "init.h"
+#include "scenario.h"
 #include "mill.h"
 #include "movement.h"
 #include "placement.h"
 
 int main(int argc, char** argv) {
   setUp();
-  readInputFile(); 
-  //printInput();
+  setUpScenario();
+  readInputFile();
+printInput();
+  createScenario(board);
+cout << "________________________" << endl;
+printScenario();
+  //if(verifyDrawGame())
+    //return drawGame();
+    
   switch(currentStage) {
     case placement:
       action_placement();
@@ -24,6 +32,7 @@ int main(int argc, char** argv) {
       exit(1);
   }
   
+  setDownScenario();
   setDown();
   return 0;
 }

@@ -1,20 +1,9 @@
-#ifndef MY_GAME_DEFS
-#define MY_GAME_DEFS
+#ifndef MY_INIT
+#define MY_INIT
 #include <string>
-#include "scenario.h"
+#include "defs.h"
 
 using namespace std;
-
-typedef enum color {
-  black = 1,
-  white
-} color;
-
-typedef enum gameStage {
-  placement = 1,
-  movement,
-  mill
-} gameStage;
 
 struct oldMove {
   bool none;
@@ -26,12 +15,15 @@ struct oldMove {
      ( (player.compare(m.player)==0) );
   }*/
 };
-
+extern char**    board;
 extern color     mcolor;
 extern gameStage currentStage;
 extern int       numBlack, numWhite;
 extern int       numberOfPieces;
+extern ppiece*   wp;
+extern ppiece*   bp;
 
+void allocPlayersPieces();
 void printBoard();
 void printInput();
 void printMove(unsigned index);

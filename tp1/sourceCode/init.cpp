@@ -1,12 +1,19 @@
-#include "gameDefs.h"
+#include "init.h"
 #include <iostream>
 
-char      board[7][7];
+char**    board;
 color     mcolor;
 gameStage currentStage;
 int       numberOfPieces, numBlack, numWhite;
 oldMove   oldmove[3];
+ppiece*   bp;
+ppiece*   wp;
 string    colorStr, stageStr;
+
+void allocPlayersPieces() {
+  bp = (ppiece*) malloc(numBlack * sizeof(ppiece));
+  wp = (ppiece*) malloc(numWhite * sizeof(ppiece));
+}
 
 void printBoard() {
   for(int i = 0; i < 7; i++) {
@@ -56,7 +63,6 @@ void readBoard() {
   }
 }
 
-
 void readInputFile() {
   cin >> colorStr;
   cin >> stageStr;
@@ -83,12 +89,20 @@ void readMove(unsigned index) {
 }
 
 void setDown() {
-  setDownScenario();
+  for(int i = 0; i < 7; i++) {
+    free(board[i]);
+  }
+  free(board);
+  free(bp);
+  free(wp);
 }
 
 void setUp() {
   numBlack = numWhite = 0;
-  setUpScenario();
+  board = (char**) malloc(7 * sizeof(char*));
+  for(int i = 0; i < 7; i++) {
+    board[i] = (char*) malloc(7 * sizeof(char));
+  }
 }
 
 void setUpVariables() {
@@ -101,13 +115,11 @@ void setUpVariables() {
   else {
     currentStage = mill;
   }
-
   if(colorStr.compare("white") == 0) {
     mcolor = white;
   }
   else {
     mcolor = black;
   }
-  
-  createScenario(board);
+  allocPlayersPieces();
 }
