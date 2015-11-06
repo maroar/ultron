@@ -13,6 +13,12 @@ bool spot::isOccupied(){
   return occupied;
 }
 
+color spot::mcolor() {
+  if(!occupied)
+    return none;
+  return ppiece->mcolor;
+}
+
 string spot::neighborsToStr() {
   string str = "";
   for(auto it = neighbors.begin(); it != neighbors.end(); ++it) {
@@ -23,7 +29,7 @@ string spot::neighborsToStr() {
 }
 
 string spot::occupiedStr() {
-  return occupied ? "(occupied)" : "(not occupied)";
+  return occupied ? "(occupied)    " : "(not occupied)";
 }
 
 void spot::addNeighbor(int i) {

@@ -93,6 +93,12 @@ void setDown() {
     free(board[i]);
   }
   free(board);
+  /*for(int i = 0; i < numBlack; i++) {
+    delete bp[i];
+  }
+  for(int i = 0; i < numwhite; i++) {
+    delete wp[i];
+  }*/
   free(bp);
   free(wp);
 }

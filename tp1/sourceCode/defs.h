@@ -5,12 +5,13 @@ struct piece;
 typedef piece* ppiece;
 
 typedef enum color {
-  black = 1,
-  white
+  black = 0,
+  white,
+  none
 } color;
 
 typedef enum gameStage {
-  placement = 1,
+  placement = 0,
   movement,
   mill
 } gameStage;

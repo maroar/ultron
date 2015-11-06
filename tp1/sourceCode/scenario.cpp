@@ -1,19 +1,25 @@
 #include "scenario.h"
+#include "init.h"
 #include <iostream>
 
 using namespace std;
 
 // scenario
-spot***              mills;
+spot***             mills;
 vector<pointerSpot> scenario;
 
 void createPiece(color pcolor, int r, int c, int id, int colorCount) {
+  createSpot(r, c, id);
   switch(pcolor) {
     case black:
-      bp[colorCount] = new piece();
+      bp[colorCount] = new piece(black);
+      bp[colorCount]->pspot = scenario[id];
+      scenario[id]->ppiece = bp[colorCount];
       break;
     case white:
-      ///////////////////////////////////////////////
+      wp[colorCount] = new piece(white);
+      wp[colorCount]->pspot = scenario[id];
+      scenario[id]->ppiece = wp[colorCount];
       break;
     default:
       cout << "ERROR: createPiece, wrong color" << endl;
@@ -49,6 +55,32 @@ void createScenario(char** m) {
     }
   }
   createSpotEdges();
+  createMills();
+}
+
+void createMill(unsigned i, unsigned a, unsigned b, unsigned c) {
+  mills[i][0] = scenario[a];
+  mills[i][1] = scenario[b];
+  mills[i][2] = scenario[c];
+}
+
+void createMills() {
+  createMill(0,  0,  1,  2);
+  createMill(1,  2,  14, 23);
+  createMill(2,  21, 22, 23);
+  createMill(3,  0,  9,  21);
+  createMill(4,  3,  4,  5);
+  createMill(5,  5,  13, 20);
+  createMill(6,  18, 19, 20);
+  createMill(7,  3,  10, 18);
+  createMill(8,  6,  7,  8);
+  createMill(9,  8,  12, 17);
+  createMill(10, 15, 16, 17);
+  createMill(11, 6,  11, 15);
+  createMill(12, 1,  4,  7);
+  createMill(13, 12, 13, 14);
+  createMill(14, 16, 19, 22);
+  createMill(15, 9,  10, 11);
 }
 
 void createSpotEdges() {
@@ -122,7 +154,19 @@ void createSpot(int r, int c, int cnt) {
   scenario[cnt] = new spot(r, c, cnt);
 }
 
+void printMills() {
+  cout << "mills:" << endl;
+  for(int i = 0; i < 16; i++) {
+    cout << "id: " << i << " | " 
+         << mills[i][0]->id << " "
+         << mills[i][1]->id << " "
+         << mills[i][2]->id << " "
+         << endl;
+  }
+}
+
 void printScenario() {
+  cout << "scenario:" << endl;
   for(int i = 0; i < 24; i++) {
     cout << "id: " << scenario[i]->id << " "
          << "r: " << scenario[i]->r << " "

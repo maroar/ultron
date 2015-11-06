@@ -14,6 +14,8 @@ printInput();
   createScenario(board);
 cout << "________________________" << endl;
 printScenario();
+cout << "________________________" << endl;
+printMills();
   //if(verifyDrawGame())
     //return drawGame();
     

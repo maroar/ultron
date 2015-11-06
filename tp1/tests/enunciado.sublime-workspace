@@ -1,0 +1,465 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"prin",
+				"printNeighbors"
+			],
+			[
+				"spo",
+				"spots"
+			],
+			[
+				"s",
+				"spots"
+			],
+			[
+				"num",
+				"numberOfEdges"
+			],
+			[
+				"expand",
+				"expandCount"
+			],
+			[
+				"my",
+				"myOtherExample"
+			],
+			[
+				"to",
+				"to_string"
+			],
+			[
+				"pa",
+				"parent"
+			],
+			[
+				"p",
+				"push_back"
+			],
+			[
+				"new",
+				"newNode"
+			],
+			[
+				"pac",
+				"pacMaze"
+			],
+			[
+				"di",
+				"_direction"
+			],
+			[
+				"print",
+				"printDot"
+			],
+			[
+				"cha",
+				"charBeforePacMan"
+			],
+			[
+				"cla",
+				"class_name"
+			],
+			[
+				"___",
+				"_____________________"
+			],
+			[
+				"sc",
+				"scenario"
+			],
+			[
+				"co",
+				"coordX"
+			],
+			[
+				"a",
+				"add_constraint"
+			],
+			[
+				"_",
+				"_____________________"
+			],
+			[
+				"cons",
+				"constraints"
+			],
+			[
+				"solve",
+				"solve_FuncCall"
+			],
+			[
+				"c",
+				"constraints"
+			],
+			[
+				"const",
+				"Constraint"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/marcus/Documents/ufmg/ia/ultron/tp1/tests/enunciado",
+		"/home/marcus/Documents/ufmg/ia/ultron/tp1/sourceCode/piece.cpp",
+		"/home/marcus/Documents/ufmg/ia/ultron/tp1/compila.sh",
+		"/home/marcus/Documents/ufmg/ia/ultron/tp1/sourceCode/piece.h",
+		"/home/marcus/Documents/ufmg/ia/ultron/tp1/sourceCode/scenario.cpp",
+		"/home/marcus/Documents/ufmg/ia/ultron/tp1/sourceCode/scenario.h",
+		"/home/marcus/Documents/ufmg/ia/ultron/tp1/sourceCode/spot.cpp",
+		"/home/marcus/Documents/ufmg/ia/ultron/tp1/sourceCode/spot.h",
+		"/home/marcus/Documents/ufmg/ia/ultron/tp1/sourceCode/scenario.txt",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/sourceCode/avaliaAStar.cpp",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/sourceCode/PacMaze.cpp",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/sourceCode/PacMaze.h",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/compila.sh",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/sourceCode/bfs.cpp",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/sourceCode/dfs.cpp",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/sourceCode/astar.cpp",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/sourceCode/PacMan.cpp",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/sourceCode/PacMan.h",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/avalia_bfs.sh",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/tests/assignmentExample",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/avalia_dfs.sh",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/avalia_astar.sh",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/avaliaSucessor",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/avalia_sucessor.sh",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/avalia_expande.sh",
+		"/home/marcus/cparser/main.py",
+		"/home/marcus/cparser/testLexer.py",
+		"/home/marcus/cparser/my_values.py",
+		"/home/marcus/cparser/pycparser/pycparser/c_parser.py",
+		"/home/marcus/cparser/pycparser/pycparser/c_lexer.py",
+		"/home/marcus/cparser/pycparser/pycparser/ply/lex.py",
+		"/home/marcus/cparser/pycparser/pycparser/ply/yacc.py",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/sourceCode/avaliaExpande.cpp",
+		"/home/marcus/cparser/ExtractConstraints.py",
+		"/home/marcus/cparser/pycparser/tests/test_c_lexer.py",
+		"/home/marcus/cparser/pycparser/pycparser/plyparser.py",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/tests/myOtherExample",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/sourceCode/avaliaBFS.cpp",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/sourceCode/avaliaDFS.cpp",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/all",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/assignmentExample.astar.dot",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/myOtherExample.astar.dot",
+		"/home/marcus/cparser/pycparser/pycparser/ply/ctokens.py",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/tests/mySimpleExample",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/sourceCode/avaliaSucessor.cpp",
+		"/home/marcus/cparser/Visitors.py",
+		"/home/marcus/cparser/pycparser/pycparser/c_ast.py",
+		"/home/marcus/cparser/pycparser/examples/explore_ast.py",
+		"/home/marcus/cparser/pycparser/pycparser/_c_ast.cfg",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/sourceCode/Scenario.cpp",
+		"/home/marcus/Documents/ufmg/ia/ultron/list1/sourceCode/Scenario.h",
+		"/home/marcus/cparser/pycparser/build/lib.linux-x86_64-2.7/pycparser/c_ast.py",
+		"/home/marcus/llvm/tools/clang/tools/m_traverse_AST/Makefile",
+		"/home/marcus/cparser/pycparser/examples/c-to-c.py",
+		"/home/marcus/cparser/pycparser/examples/rewrite_ast.py",
+		"/home/marcus/cparser/pycparser/examples/func_calls.py",
+		"/home/marcus/cparser/pycparser/examples/func_defs.py",
+		"/home/marcus/cparser/pycparser/examples/cdecl.py",
+		"/home/marcus/cparser/pycparser/examples/using_cpp_libc.py",
+		"/home/marcus/cparser/pycparser/examples/using_gcc_E_libc.py",
+		"/home/marcus/cparser/run",
+		"/home/marcus/cparser/typedef/T0.c",
+		"/home/marcus/cparser/pycparser/examples/c_files/year.c",
+		"/home/marcus/cparser/pycparser/examples/c_files/memmgr.h",
+		"/home/marcus/cparser/pycparser/examples/c_files/memmgr.c",
+		"/home/marcus/cparser/pycparser/examples/c_files/hash.c",
+		"/home/marcus/cparser/pycparser/examples/c_files/funky.c",
+		"/home/marcus/tmp/psyche/src/scripts/auto_compile/global.h",
+		"/home/marcus/tmp/psyche/src/scripts/auto_compile/build_makefile.sh",
+		"/home/marcus/tmp/psyche/src/scripts/auto_compile/auto_compile.sh",
+		"/home/marcus/tmp/psyche/src/scripts/auto_compile/Makefile",
+		"/home/marcus/tmp/psyche/src/scripts/auto_compile/work_list.sh",
+		"/home/marcus/tmp/psyche/src/scripts/auto_compile/helper.sh"
+	],
+	"find":
+	{
+		"height": 27.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"fringe",
+			"nodeIs",
+			"nodeIsGoal",
+			"fringe",
+			"Node",
+			"visited",
+			"expandCount",
+			"_is_type_in_scope",
+			"_lex_type_lookup_func",
+			"lexindexfunc",
+			"CLexer",
+			"type_lookup_func",
+			"lexindexfunc",
+			"lexignore",
+			"input",
+			"self.token",
+			"type_lookup_func",
+			"parseopt_notrack",
+			"toDot",
+			"expand",
+			"toDot",
+			"parseopt_notrack",
+			"TYPE",
+			"type",
+			"parseopt_notrack",
+			"input",
+			"CLexer(",
+			"parseopt_notrack",
+			"yacc",
+			"class",
+			"parseopt_notrack",
+			"def parse",
+			"parse",
+			"parseopt_not",
+			"token",
+			"toDot",
+			"cost",
+			"expand",
+			"LRTable",
+			"LexToken",
+			"fringe",
+			"POSITIONY",
+			"POSITIONX",
+			"pop",
+			"explored",
+			"Frontier",
+			"fringe",
+			"frontier",
+			"visi",
+			"visited",
+			"pacMan",
+			"GREEN",
+			"this",
+			"Move",
+			"moves",
+			"successor",
+			"succe",
+			"frontier",
+			"successor",
+			"expand",
+			"moves",
+			"LALR",
+			"moves",
+			"_dir",
+			" Scenario",
+			"Decl",
+			"c_as",
+			"Decl",
+			"FuncD",
+			"FuncC",
+			"parent",
+			"show(",
+			"FuncDef",
+			"examp",
+			"print",
+			"INCLUDE_DOT_C",
+			"build_make_file_add_include_dot_c",
+			"build_make",
+			"boardIO",
+			"/home/marcus/Maxtrack/BSP/Port/MTC-7xx/boardIOProxyIDP780.c",
+			"g_bipCfg",
+			"boardIOProxyIDP780.c",
+			"boardIOProxy.c",
+			"boardIOProxyIDP780.c",
+			"ADC_OUTPUT3_OPEN",
+			"ADC_IN8A_STM32",
+			"ADC_OUTPUT1_OPEN",
+			"ADC_IN8A_STM32",
+			"GPIOID_OTG_VBUS",
+			"GPIOID_VPWR_DET",
+			"__irq",
+			"SCB_SCR_SLEEPDEEP_Msk",
+			"NVIC"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"open",
+			"COLUMN",
+			"ROW",
+			"fringe",
+			"explored",
+			"children",
+			" PacMaze"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "enunciado.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"com",
+				"ultron/list1/compila.sh"
+			],
+			[
+				"my",
+				"ultron/list1/tests/mySimpleExample"
+			],
+			[
+				"yacc",
+				"cparser/pycparser/pycparser/ply/yacc.py"
+			],
+			[
+				"c_parser",
+				"cparser/pycparser/pycparser/c_parser.py"
+			],
+			[
+				"c_ast",
+				"cparser/pycparser/pycparser/c_ast.py"
+			],
+			[
+				"c_a",
+				"cparser/pycparser/pycparser/_c_ast.cfg"
+			],
+			[
+				"ast",
+				"pycparser/build/lib.linux-x86_64-2.7/pycparser/c_ast.py"
+			],
+			[
+				"c_as",
+				"pycparser/pycparser/c_ast.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 236.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

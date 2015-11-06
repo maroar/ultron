@@ -1,7 +1,9 @@
 #include "piece.h"
 
-piece::piece() {
+unsigned piece::count = 0;
 
+piece::piece(color c) : id(count), mcolor(c){
+  count++;
 }
 
 void piece::successor() {
