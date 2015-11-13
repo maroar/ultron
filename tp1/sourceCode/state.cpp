@@ -8,14 +8,18 @@
 
 using namespace std;
 
-/*bool state::matchMill(unsigned i, color c) {
-  if(p[mills[i][0]->id] == c &&
-     p[mills[i][1]->id] == c &&
-     p[mills[i][2]->id] == c)
-    return 1;
-  else
-    return 0;
-}*/
+bool state::inMill(unsigned i, color c) {
+  for(int i = 0; i < 16; i++) {
+    if(p[mills[i][0]->id] == c &&
+       p[mills[i][1]->id] == c &&
+       p[mills[i][2]->id] == c) {
+      if((mills[i][0]->id) || (mills[i][1]->id == i) || (mills[i][2]->id == i) )
+        return true;
+      else
+        return false;
+    }
+  }
+}
 
 bool state::matchMill(unsigned i, color c) {
   if(p[mills[i][0]->id] == c &&
@@ -204,13 +208,14 @@ void state::init(char** m) {
 }
 
 void state::print() {
-  print(0); cout << "--"; print(1); cout << "--"; print(2); cout << endl;
-  cout << "|"; print(3); cout << "-"; print(4); cout << "-"; print(5); cout << "|"; cout << endl; 
-  cout << "|"; cout << "|"; print(6); print(7); print(8); cout << "|"; cout << "|"; cout << endl;
-  print(9); print(10); print(11); cout << "+"; print(12); print(13); print(14); cout << endl;
-  cout << "|"; cout << "|"; print(15); print(16); print(17); cout << "|"; cout << "|"; cout << endl;
-  cout << "|"; print(18); cout << "-"; print(19); cout << "-"; print(20); cout << "|"; cout << endl;
-  print(21); cout << "--"; print(22); cout << "--"; print(23); cout << endl;
+  cout << "  0123456" << endl;
+  cout << "0 ";print(0); cout << "--"; print(1); cout << "--"; print(2); cout << endl;
+  cout << "1 ";cout << "|"; print(3); cout << "-"; print(4); cout << "-"; print(5); cout << "|"; cout << endl; 
+  cout << "2 ";cout << "|"; cout << "|"; print(6); print(7); print(8); cout << "|"; cout << "|"; cout << endl;
+  cout << "3 ";print(9); print(10); print(11); cout << "+"; print(12); print(13); print(14); cout << endl;
+  cout << "4 ";cout << "|"; cout << "|"; print(15); print(16); print(17); cout << "|"; cout << "|"; cout << endl;
+  cout << "5 ";cout << "|"; print(18); cout << "-"; print(19); cout << "-"; print(20); cout << "|"; cout << endl;
+  cout << "6 ";print(21); cout << "--"; print(22); cout << "--"; print(23); cout << endl;
   cout << "_____________________________" << endl;
 }
 

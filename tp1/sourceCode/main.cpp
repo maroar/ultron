@@ -40,7 +40,7 @@ void optPlay() {
       cout << "ERROR: in method play, bad color!";
       exit(1);
   }
-  play(mcolor, initial);
+  play(white, initial);
 }
 
 int main(int argc, char** argv) {

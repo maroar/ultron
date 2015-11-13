@@ -17,6 +17,7 @@ struct spot {
   unsigned          id, r, c, n;
 
   spot(unsigned row, unsigned column, unsigned identifier);
+  bool   hasNeighbor(unsigned i);
   string neighborsToStr();
   string occupiedStr();
   void   addNeighbor(int i);

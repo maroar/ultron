@@ -5,6 +5,23 @@
 
 using namespace std;
 
+kindOfAction returnKindOfAction(gameStage g) {
+  switch(g) {
+    case placement:
+      return put_piece;
+      break;
+    case movement:
+      return move_piece;
+      break;
+    case mill:
+      return remove_piece;
+      break;
+    default:
+      cout << "ERROR: returnKindOfAction, wrong game stage! =/" << endl;
+      exit(1);
+  }
+}
+
 void movePiece(unsigned orow, unsigned ocolumn, unsigned trow, unsigned tcolumn) {
   cout << orow << " " << ocolumn << " " << trow << " " << tcolumn; 
 }

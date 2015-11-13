@@ -8,6 +8,34 @@ using namespace std;
 spot***             mills;
 vector<pointerSpot> scenario;
 
+void createEmptyScenario() {
+  int spotCount = 0, cntWhite = 0, cntBlack = 0;
+  for(int r = 0; r < 7; r++) {
+    for(int c = 0; c < 7; c++) {
+      switch(m[r][c]) {
+        case 'B':
+          createSpot(r, c, spotCount);
+          cntBlack++;
+          spotCount++;
+          break;
+        case 'W':
+          createSpot(r, c, spotCount);
+          cntWhite++;
+          spotCount++;
+          break;
+        case 'o':
+          createSpot(r, c, spotCount);
+          spotCount++;
+          break;
+        default:
+          break;
+      }
+    }
+  }
+  createSpotEdges();
+  createMills();
+}
+
 void createScenario(char** m) {
   int spotCount = 0, cntWhite = 0, cntBlack = 0;
   for(int r = 0; r < 7; r++) {

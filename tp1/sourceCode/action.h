@@ -19,4 +19,6 @@ struct action {
   void print();
 };
 
+kindOfAction returnKindOfAction(gameStage g);
+
 #endif

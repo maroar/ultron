@@ -12,9 +12,13 @@
 #include "minMax.h"
 
 bool      hasWinner();
+bool      isAValidMove();
+bool      myColorCanfly();
+bool      verify(int r, int c);
 color     getActualColor();
 gameStage getStage();
 int       numPlayerPieces();
+int       searchSpot(int i, int j);
 void      botPlays();
 void      makeMove();
 void      play(color c, state* st);

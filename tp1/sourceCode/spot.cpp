@@ -5,6 +5,15 @@
 spot::spot(unsigned row, unsigned column, unsigned identifier) : r(row), c(column), id(identifier), n(0){
 }
 
+bool spot::hasNeighbor(unsigned i) {
+  for(auto it = neighbors.begin(); it != neighbors.end(); ++it) {
+    if((*it)->id == i) {
+      return true;
+    } 
+  }
+  return false;
+}
+
 string spot::neighborsToStr() {
   string str = "";
   for(auto it = neighbors.begin(); it != neighbors.end(); ++it) {
@@ -19,7 +28,7 @@ void spot::addNeighbor(int i) {
   n++;
 }
 
-void spot::printNeighbors(){
+void spot::printNeighbors() {
   cout << "node: " << id << endl;
   for(auto it = neighbors.begin(); it != neighbors.end(); ++it) {
     cout << " - " << (*it)->id << endl; 
