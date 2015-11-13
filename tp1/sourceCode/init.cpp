@@ -1,18 +1,27 @@
 #include "init.h"
 #include <iostream>
 
-char**    board;
-color     mcolor;
-gameStage currentStage;
-int       numberOfPieces, numBlack, numWhite;
-oldMove   oldmove[3];
-ppiece*   bp;
-ppiece*   wp;
-string    colorStr, stageStr;
+bool          flyWhite, flyBlack;
+char**        board;
+color         mcolor;
+gameStage     currentStage;
+int           numberOfPieces, numBlack, numWhite;
+oldMove       oldmove[3];
+ppiece*       bp;
+ppiece*       wp;
+string        colorStr, stageStr;
 
 void allocPlayersPieces() {
   bp = (ppiece*) malloc(numBlack * sizeof(ppiece));
   wp = (ppiece*) malloc(numWhite * sizeof(ppiece));
+}
+
+color invertColor(color c) {
+  return (c == black) ? white : black;
+}
+
+unsigned mrand() {
+  return (unsigned) rand() % 10;
 }
 
 void printBoard() {
@@ -21,6 +30,16 @@ void printBoard() {
       cout << board[i][j];
     }
     cout << endl;
+  }
+}
+
+void printColor(color c) {
+  if(c == white) {
+    cout << "white" << endl;
+  } else if (c == black) {
+    cout << "black" << endl;
+  } else {
+    cout << "nocolor" << endl;
   }
 }
 
@@ -35,6 +54,10 @@ void printInput() {
   printMove(1);
   printMove(2);
   printBoard();
+}
+
+void printMColor() {
+  printColor(mcolor);
 }
 
 void printMove(unsigned index) {
@@ -104,6 +127,8 @@ void setDown() {
 }
 
 void setUp() {
+  srand(time(NULL));
+  flyWhite = flyBlack = false;
   numBlack = numWhite = 0;
   board = (char**) malloc(7 * sizeof(char*));
   for(int i = 0; i < 7; i++) {
@@ -112,6 +137,7 @@ void setUp() {
 }
 
 void setUpVariables() {
+  //game stage
   if(stageStr.compare("placement") == 0) {
     currentStage = placement;
   } 
@@ -121,11 +147,19 @@ void setUpVariables() {
   else {
     currentStage = mill;
   }
+  //set my color
   if(colorStr.compare("white") == 0) {
     mcolor = white;
   }
   else {
     mcolor = black;
+  }
+  //set fly state
+  if(numBlack == 3) {
+    flyBlack = true;
+  }
+  if(numWhite == 3) {
+    flyWhite = true;
   }
   allocPlayersPieces();
 }

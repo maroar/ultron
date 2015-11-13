@@ -7,7 +7,7 @@ typedef piece* ppiece;
 typedef enum color {
   black = 0,
   white,
-  none
+  nocolor
 } color;
 
 typedef enum gameStage {

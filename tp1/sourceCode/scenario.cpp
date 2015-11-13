@@ -8,45 +8,23 @@ using namespace std;
 spot***             mills;
 vector<pointerSpot> scenario;
 
-void createPiece(color pcolor, int r, int c, int id, int colorCount) {
-  createSpot(r, c, id);
-  switch(pcolor) {
-    case black:
-      bp[colorCount] = new piece(black);
-      bp[colorCount]->pspot = scenario[id];
-      scenario[id]->ppiece = bp[colorCount];
-      break;
-    case white:
-      wp[colorCount] = new piece(white);
-      wp[colorCount]->pspot = scenario[id];
-      scenario[id]->ppiece = wp[colorCount];
-      break;
-    default:
-      cout << "ERROR: createPiece, wrong color" << endl;
-      exit(1);
-  }
-}
-
 void createScenario(char** m) {
   int spotCount = 0, cntWhite = 0, cntBlack = 0;
   for(int r = 0; r < 7; r++) {
     for(int c = 0; c < 7; c++) {
       switch(m[r][c]) {
         case 'B':
-          createPiece(black, r, c, spotCount, cntBlack);
-          scenario[spotCount]->occupied = true;
+          createSpot(r, c, spotCount);
           cntBlack++;
           spotCount++;
           break;
         case 'W':
-          createPiece(white, r, c, spotCount, cntWhite);
-          scenario[spotCount]->occupied = true;
+          createSpot(r, c, spotCount);
           cntWhite++;
           spotCount++;
           break;
         case 'o':
           createSpot(r, c, spotCount);
-          scenario[spotCount]->occupied = false;
           spotCount++;
           break;
         default:
@@ -170,8 +148,7 @@ void printScenario() {
   for(int i = 0; i < 24; i++) {
     cout << "id: " << scenario[i]->id << " "
          << "r: " << scenario[i]->r << " "
-         << "c: " << scenario[i]->c << " "
-         << scenario[i]->occupiedStr() << " "
+         << "c: " << scenario[i]->c << " | "
          << scenario[i]->neighborsToStr()
          << endl;
   }

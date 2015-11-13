@@ -9,21 +9,14 @@
 
 struct  spot;
 typedef spot* pointerSpot;
-struct  piece;
-typedef piece* pointerPiece;
 
 using namespace std;
 
 struct spot {
-  bool              occupied;
   list<pointerSpot> neighbors;
-  pointerPiece      ppiece;
-  unsigned          id, r, c;
+  unsigned          id, r, c, n;
 
   spot(unsigned row, unsigned column, unsigned identifier);
-  bool   isOccupied();
-  bool   isFree();
-  color  mcolor();
   string neighborsToStr();
   string occupiedStr();
   void   addNeighbor(int i);

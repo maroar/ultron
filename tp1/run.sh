@@ -1,2 +1,4 @@
 #!/bin/bash
-./tp1 <./tests/enunciado
+./launch.sh ./tests/placement.txt
+cat move.txt
+echo ""

@@ -2,21 +2,7 @@
 #include "spot.h"
 #include "scenario.h"
 // spot
-spot::spot(unsigned row, unsigned column, unsigned identifier) : r(row), c(column), id(identifier), occupied(false){
-}
-
-bool spot::isFree(){
-  return !occupied;  
-}
-
-bool spot::isOccupied(){
-  return occupied;
-}
-
-color spot::mcolor() {
-  if(!occupied)
-    return none;
-  return ppiece->mcolor;
+spot::spot(unsigned row, unsigned column, unsigned identifier) : r(row), c(column), id(identifier), n(0){
 }
 
 string spot::neighborsToStr() {
@@ -28,12 +14,9 @@ string spot::neighborsToStr() {
   return str;
 }
 
-string spot::occupiedStr() {
-  return occupied ? "(occupied)    " : "(not occupied)";
-}
-
 void spot::addNeighbor(int i) {
   neighbors.push_back(scenario[i]);
+  n++;
 }
 
 void spot::printNeighbors(){
