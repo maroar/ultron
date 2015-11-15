@@ -5,10 +5,15 @@
 using namespace std;
 
 bool      bfly, wfly;
-color     acolor, winner;
+color     acolor, winner, cenemy;
 gameStage stage;
 int       trow, tcol, drow, dcol;
 state*    cstate;
+
+static bool deleteAll(node* theElement) {
+  delete theElement; 
+  return true; 
+}
 
 bool canIMoveToThere() {
   unsigned target = searchSpot(trow, tcol);
@@ -70,7 +75,7 @@ bool canIRemoveIt() {
 }
 
 bool  hasWinner() {
-  return true;
+  return false;
 }
 
 bool isAValidMove() {
@@ -95,11 +100,7 @@ bool myColorCanfly() {
 }
 
 bool verify(int r, int c) {
- cout << " " << r << " xxxxxxxxxxxxxxxxxxxx " << c << endl;
   for(int i = 0; i < 24; i++) {
- cout << " " << i << endl;   
-    cout << "sr: " << scenario[i]->r << " sc: " 
-         << scenario[i]->c << " (" << r << ", " << c << ")" << endl;
     if(scenario[i]->r == r && scenario[i]->c == c) {
       return true;
     }
@@ -116,19 +117,49 @@ gameStage getStage() {
   return stage;
 }
 
-int searchSpot(int i, int j) {
-  if(i < 0)
+int searchSpot(int r, int c) {
+  if(r < 0) {
+    cout << "ERROR: searchSpot, can not find a spot to a negative value! -_-" << endl;
+    exit(1);
+
     return 1000000;
+  }
 
   for(int i = 0; i < 24; i++) {
-    if((scenario[i]->r == i) && (scenario[i]->c == j)) {
+    if((scenario[i]->r == r) && (scenario[i]->c == c)) {
       return i;
     }
   }
+  cout << "ERROR: searchSpot, can not find this spot! -_-" << endl;
+  exit(1);
+  return 10000000;
 }
 
-void botPlays() {
-  //
+void addPieceForPlayer(color c) {
+  numberOfPieces++;
+  switch(c) {
+    case black:
+      numBlack++;
+      break;
+    case white:
+      numWhite++;
+      break;
+  }
+}
+
+void botPlays(color c) {
+  state* old  = cstate;
+  pnode  root = new node(cstate, nullptr);
+  action* a;
+
+  a      = alphaBetaSearch(root, c);
+  cstate = old->makeState(a);
+  /*for(auto it : lnodes) {
+    delete it;
+    lnodes.clear();
+  }*/
+  lnodes.remove_if(deleteAll);
+  delete root;
 }
 
 int numPlayerPieces() {
@@ -159,41 +190,58 @@ void makeMove() {
 }
 
 void play(color c, state* st) {
-  acolor    = c;
-  stage     = placement;
-  cstate    = st;
-  bfly      = false;
-  wfly      = false;
+  acolor         = c;
+  cenemy         = invertColor(mcolor);
+  stage          = placement;
+  cstate         = st;
+  bfly           = false;
+  wfly           = false;
+  numberOfPieces = 0;
+  numBlack       = 0;
+  numWhite       = 0;
 
-  int cnt = 0;
+//int cnt = 0;
   while(true) {
     //system("clear");
     if(acolor == mcolor) {
+      //cout << "********************************* player" << endl;
       playerPlays();
     }
     else {
-      botPlays();
+      //cout << "111111111111111111111111111111111 bot" << endl;
+      //cstate->print();
+      botPlays(cenemy);
+      //cout << "222222222222222222222222222222222 bot" << endl;
     }
-    cstate->print();
 
     if(hasWinner()) break;
+
+    // has a new mill
+    
+    if( == 18) {
+      stage = movement;
+    }
+    
     acolor = invertColor(acolor);
 
-    //cnt++; if(cnt > 3) break;    
+    //cnt++; if(cnt > 6) break;    
   }
 }
 
 void playerPlays() {
+  system("clear");
   cstate->print();
   readMove();
-  /*if(!isAValidMove()) {
+  if(!isAValidMove()) {
     cout << "ERROR: playerPlays, bad move! =P" << endl;
     exit(1);
-  }*/
+  }
+
   state* old = cstate;
   int    t, f;
   t = searchSpot(trow, tcol);
   f = searchSpot(trow, tcol);
+
   action* a = new action(returnKindOfAction(stage), mcolor, f, t);
   cstate    = old->makeState(a);
 
@@ -210,14 +258,16 @@ void readMove() {
            << endl;
       cin >> trow;
       cin >> tcol;
-      cout << " " << trow << " ************ " << tcol << endl;
       drow = -1;
       dcol = -1;
+
       if(!verify(trow, tcol)) {
         cout << "ERROR: readMove, wrong place." << endl;
         exit(1);
       }
-      cout << " " << trow << " ************ " << tcol << endl;
+
+      addPieceForPlayer(mcolor);
+
       break;
     case movement:
       cout << "movement:" << endl 
@@ -227,10 +277,12 @@ void readMove() {
       cin >> dcol;
       cin >> trow;
       cin >> tcol;
+
       if(!verify(trow, tcol) || !verify(drow, dcol)) {
         cout << "ERROR: readMove, wrong place." << endl;
         exit(1);
       }
+
       break;
     case mill:
       cout << "mill:\n" 
@@ -240,10 +292,12 @@ void readMove() {
       cin >> tcol;
       drow = -1;
       dcol = -1;
+
       if(!verify(trow, tcol)) {
         cout << "ERROR: readMove, wrong place." << endl;
         exit(1);
       }
+
       break;
   }
 }

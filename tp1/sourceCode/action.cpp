@@ -22,6 +22,19 @@ kindOfAction returnKindOfAction(gameStage g) {
   }
 }
 
+/*string action::kindOfActionToString() {
+  switch(kind) {
+    case put_piece:
+      return "put";
+    case move_piece:
+      return "move " +;
+    case remove_piece:
+      return "remove";
+    default:
+      return "none";
+  }
+}*/
+
 void movePiece(unsigned orow, unsigned ocolumn, unsigned trow, unsigned tcolumn) {
   cout << orow << " " << ocolumn << " " << trow << " " << tcolumn; 
 }
@@ -32,6 +45,15 @@ void removePiece(unsigned trow, unsigned tcolumn) {
 
 void putPiece(unsigned row, unsigned column) {
   cout << row << " " << column;
+}
+
+string action::toString() {
+  string str = "o: ";
+  str += to_string(o);
+  str += " t: ";
+  str += to_string(t);
+
+  return str;
 }
 
 void action::print() {

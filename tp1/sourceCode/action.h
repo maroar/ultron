@@ -3,6 +3,8 @@
 
 #include "init.h"
 
+#include <string>
+
 typedef enum kindOfAction {
   put_piece = 0,
   move_piece,
@@ -16,7 +18,8 @@ struct action {
   unsigned     o, t;// origin | target
   action(kindOfAction k, color c, unsigned orig, unsigned target) 
     : kind(k), acolor(c), o(orig), t(target) {};
-  void print();
+  string toString();
+  void   print();
 };
 
 kindOfAction returnKindOfAction(gameStage g);

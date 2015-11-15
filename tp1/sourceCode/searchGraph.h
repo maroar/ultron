@@ -10,14 +10,18 @@ typedef node* pnode;
 struct node {
   static unsigned cnt;
   action*         act;
+  bool            x;
+  int             shp;
   list<pnode>     succ;
+  pnode           parent;
   state*          st;
   unsigned        id;
 
   node(state* st_, action* act_);
   ~node();
-  int   score();
+  int   score(color c);
   pnode makeNode(state* s, action* a);
+  void  printDot();
 };
 
 extern list<pnode> lnodes;

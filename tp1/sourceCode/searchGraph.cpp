@@ -1,18 +1,23 @@
 #include "searchGraph.h"
 #include "scenario.h"
 
+#include <string>
+#include <iostream>
+
+using namespace std;
+
 // node
 unsigned node::cnt = 0;
 list<pnode>    lnodes;
 
-int node::score() {
+int node::score(color c) {
   switch(currentStage) {
     case placement:
-      return st->getScorePlacement(act->acolor);
+      return st->getScorePlacement(c);
     case movement:
-      return st->getScoreMove(act->acolor);
+      return st->getScoreMove(c);
     case mill:
-      return st->getScoreMill(act->acolor);
+      return st->getScoreMill(c);
   }
 }
 
@@ -35,7 +40,7 @@ list<pnode> successorPlacement(pnode n, color c) {
 
   for(int i = 0; i < 24; i++) { // iterate over all spots in the board
     if(n->st->p[i] == nocolor) { // select all of free spots in the board
-      a  = new action(put_piece, c, -1, i);
+      a  = new action(put_piece, c, 99, i);
       st = n->st->makeState(a);
       //st->print();
       pn  = n->makeNode(st, a);
@@ -88,7 +93,7 @@ list<pnode> successorMill(pnode n, color c) {
   return all;
 }
 
-node::node(state* st_, action* act_) : st(st_), act(act_) {
+node::node(state* st_, action* act_) : st(st_), act(act_), shp(0), x(false) {
   id = cnt++;
 }
 
@@ -99,6 +104,29 @@ node::~node() {
 
 pnode node::makeNode(state* s, action* a) {
   pnode n = new node(s, a);
+  n->parent = this;
   lnodes.push_back(n);
   return n;
+}
+
+string shape(int s) {
+  if(s == 1)
+    return "triangle";
+  else if(s == -1)
+    return "invtriangle";
+  else
+    return "box";
+}
+
+string fill(bool x) {
+  if(x)
+    return "red";
+  else
+    return "blue";
+}
+
+void node::printDot() {
+  cout << " n" << id << " [shape=" << shape(shp) << " color=" << fill(x) << " label=\"" << st->score << "\\n " << act->toString() << "\"]" << endl;
+  if(parent)
+    cout << " n" << id << " -- n" << parent->id << endl; 
 }

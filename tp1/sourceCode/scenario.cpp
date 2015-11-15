@@ -9,48 +9,42 @@ spot***             mills;
 vector<pointerSpot> scenario;
 
 void createEmptyScenario() {
-  int spotCount = 0, cntWhite = 0, cntBlack = 0;
-  for(int r = 0; r < 7; r++) {
-    for(int c = 0; c < 7; c++) {
-      switch(m[r][c]) {
-        case 'B':
-          createSpot(r, c, spotCount);
-          cntBlack++;
-          spotCount++;
-          break;
-        case 'W':
-          createSpot(r, c, spotCount);
-          cntWhite++;
-          spotCount++;
-          break;
-        case 'o':
-          createSpot(r, c, spotCount);
-          spotCount++;
-          break;
-        default:
-          break;
-      }
-    }
-  }
+  createSpot(0, 0, 0);
+  createSpot(0, 3, 1);
+  createSpot(0, 6, 2);
+  createSpot(1, 1, 3);
+  createSpot(1, 3, 4);
+  createSpot(1, 4, 5);
+  createSpot(2, 2, 6);
+  createSpot(2, 3, 7);
+  createSpot(2, 4, 8);
+  createSpot(3, 0, 9);
+  createSpot(3, 1, 10);
+  createSpot(3, 2, 11);
+  createSpot(3, 4, 12);
+  createSpot(3, 5, 13);
+  createSpot(3, 6, 14);
+  createSpot(4, 2, 15);
+  createSpot(4, 3, 16);
+  createSpot(4, 4, 17);
+  createSpot(5, 1, 18);
+  createSpot(5, 3, 19);
+  createSpot(5, 5, 20);
+  createSpot(6, 0, 21);
+  createSpot(6, 3, 22);
+  createSpot(6, 6, 23);
+
   createSpotEdges();
   createMills();
 }
 
 void createScenario(char** m) {
-  int spotCount = 0, cntWhite = 0, cntBlack = 0;
+  int spotCount = 0;
   for(int r = 0; r < 7; r++) {
     for(int c = 0; c < 7; c++) {
       switch(m[r][c]) {
         case 'B':
-          createSpot(r, c, spotCount);
-          cntBlack++;
-          spotCount++;
-          break;
         case 'W':
-          createSpot(r, c, spotCount);
-          cntWhite++;
-          spotCount++;
-          break;
         case 'o':
           createSpot(r, c, spotCount);
           spotCount++;

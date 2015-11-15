@@ -10,6 +10,7 @@ extern spot***             mills;
 extern vector<pointerSpot> scenario;
 
 //void createPiece(color pcolor, int r, int c, int id, int colorCount);
+void createEmptyScenario();
 void createScenario(char** m);
 void createMill(unsigned i, unsigned a, unsigned b, unsigned c);
 void createMills();

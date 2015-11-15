@@ -1,4 +1,4 @@
 #!/bin/bash
-./launch.sh ./tests/placement.txt
+./launch.sh ./tests/teste.txt
 cat move.txt
 echo ""

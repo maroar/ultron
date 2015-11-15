@@ -14,7 +14,7 @@ struct state {
   state*        parent;
   vector<color> p;
 
-  state() : score(-1), cntBlackMills(-1), cntWhiteMills(-1) {
+  state() : score(1), cntBlackMills(-1), cntWhiteMills(-1) {
     p.reserve(24);
   }
   bool   inMill(unsigned i, color c);
@@ -36,6 +36,8 @@ struct state {
   void   put(action* a);
   void   remove(action* a);
   void   print();
+  void   printDot(int id);
+  void   print2(color c);
   void   print(unsigned i);
 };
 

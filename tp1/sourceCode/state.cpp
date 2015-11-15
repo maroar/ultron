@@ -39,30 +39,32 @@ int state::getScoreMill(color c) {
 }
 
 int state::getScoreMove(color c) {
-  if(score > -1) {
+  if(score != 1) {
     return score;
   }
+
   color e = invertColor(c);
-  score   =  mrand();
+  score   =  0;
   score  += pointsForPlaces(c);
-  score  += pointsForMills(c);
-  score  -= pointsForPlaces(e);
-  score  -= pointsForMills(e);
+  //score  += 2*pointsForMills(c);
+  //score  -= pointsForPlaces(e);
+  //score  -= pointsForMills(e);
 
   return score;
 }
 
 int state::getScorePlacement(color c) {
-  if(score > -1) {
+  if(score != 1) {
     return score;
   }
-  color e = invertColor(c);
-  score   =  mrand();
-  score  += pointsForPlaces(c);
-  score  += pointsForMills(c);
-  score  -= pointsForPlaces(e);
-  score  -= pointsForMills(e);
 
+  color e = invertColor(c);
+  score   =  0;
+  score  += 2*pointsForPlaces(c);
+  //score  += 2*pointsForMills(c);
+  //score  -= pointsForPlaces(e);
+  //score  -= pointsForMills(e);
+  
   return score;
 }
 
@@ -79,6 +81,7 @@ int state::numberOfMills(color c){
   for(int i = 0; i < 16; i++) {
     cntMills += matchMill(i, c);
   }
+
   return cntMills;
 }
 
@@ -148,6 +151,7 @@ state* state::makeState(action* a) {
       st->remove(a);
       break;
   }
+
   return st;
 }
 
@@ -218,6 +222,21 @@ void state::print() {
   cout << "6 ";print(21); cout << "--"; print(22); cout << "--"; print(23); cout << endl;
   cout << "_____________________________" << endl;
 }
+
+void state::print2(color c) {
+  printSpot(c); cout << endl;
+  cout << "s: " << getScorePlacement(c) << endl;
+  cout << "  0123456" << endl;
+  cout << "0 ";print(0); cout << "--"; print(1); cout << "--"; print(2); cout << endl;
+  cout << "1 ";cout << "|"; print(3); cout << "-"; print(4); cout << "-"; print(5); cout << "|"; cout << endl; 
+  cout << "2 ";cout << "|"; cout << "|"; print(6); print(7); print(8); cout << "|"; cout << "|"; cout << endl;
+  cout << "3 ";print(9); print(10); print(11); cout << "+"; print(12); print(13); print(14); cout << endl;
+  cout << "4 ";cout << "|"; cout << "|"; print(15); print(16); print(17); cout << "|"; cout << "|"; cout << endl;
+  cout << "5 ";cout << "|"; print(18); cout << "-"; print(19); cout << "-"; print(20); cout << "|"; cout << endl;
+  cout << "6 ";print(21); cout << "--"; print(22); cout << "--"; print(23); cout << endl;
+  cout << "_____________________________" << endl;
+}
+
 
 void state::print(unsigned i){
   printSpot(p[i]);
