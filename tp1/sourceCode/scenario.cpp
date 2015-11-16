@@ -14,7 +14,7 @@ void createEmptyScenario() {
   createSpot(0, 6, 2);
   createSpot(1, 1, 3);
   createSpot(1, 3, 4);
-  createSpot(1, 4, 5);
+  createSpot(1, 5, 5);
   createSpot(2, 2, 6);
   createSpot(2, 3, 7);
   createSpot(2, 4, 8);

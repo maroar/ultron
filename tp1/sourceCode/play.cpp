@@ -4,11 +4,12 @@
 
 using namespace std;
 
-bool      bfly, wfly;
+//bool      flyBlack, flyWhite;
 color     acolor, winner, cenemy;
-gameStage stage;
-int       trow, tcol, drow, dcol;
+gameStage ostage;
+int       trow, tcol, drow, dcol, cntp;
 state*    cstate;
+state*    ostate;
 
 static bool deleteAll(node* theElement) {
   delete theElement; 
@@ -73,13 +74,67 @@ bool canIRemoveIt() {
     return false;
   }
 }
+///////////////////////////////////////////////////////////////////////////
+bool hasWinner() {
+  //return false;
+  //list<pnode> ls;
+  numBlack = numWhite = 0;
+  for(int i = 0; i < 24; i++) {
+    if(cstate->p[i] == black) {
+      numBlack++;
+    }
+    else if(cstate->p[i] == white) {
+      numWhite++;
+    }
+  }
+  
+  if(numWhite < 4 && currentStage == movement) {
+    flyWhite = true;
+  }
 
-bool  hasWinner() {
+  if(numBlack < 4 && currentStage == movement) {
+    flyBlack = true;
+  }
+
+  if(currentStage == movement) {
+    if(numWhite < 3) {
+      cout << "number of pieces" << endl;
+      winner = black;
+      return true;
+    }
+    else if(numBlack < 3) {
+      cout << "number of pieces" << endl;
+      winner = white;
+      return true;
+    }
+  }
+
+  pnode n = new node(cstate->makeState(nullptr), nullptr);
+  //pnode n2 = new node(cstate->makeState(nullptr), nullptr);
+  //ls = successorMovement(n1, white);
+  if(successorMovementNumber(n, white, flyWhite) == 0 && currentStage == movement) {
+    cout << "no moves" << endl;
+    winner = black;
+    return true;
+  }
+  //ls.remove_if(deleteAll);
+  
+  //ls = successorMovement(n2, black);
+  if(successorMovementNumber(n, black, flyBlack) == 0 && currentStage == movement) {
+    cout << "no moves" << endl;
+    winner = white;
+    return true;
+  }
+  //ls.remove_if(deleteAll);
+  
+  delete n;
+  //delete n2;
+// draw game
   return false;
 }
 
 bool isAValidMove() {
-  switch(stage) {
+  switch(currentStage) {
     case placement:
       return canIPutThere();
       break;
@@ -94,9 +149,24 @@ bool isAValidMove() {
 
 bool myColorCanfly() {
   if(mcolor == white)
-    return wfly;
+    return flyWhite;
   else
-    return bfly;
+    return flyBlack;
+}
+
+bool thereIsAMill(color c) {
+  if(c == white) {
+    if(cstate->numberOfWhiteMills() > ostate->numberOfWhiteMills())
+      return true;
+    else
+      return false; 
+  } 
+  else {
+    if(cstate->numberOfBlackMills() > ostate->numberOfBlackMills())
+      return true;
+    else
+      return false; 
+  }
 }
 
 bool verify(int r, int c) {
@@ -114,15 +184,12 @@ color getActualColor(){
 }
 
 gameStage getStage() {
-  return stage;
+  return currentStage;
 }
 
 int searchSpot(int r, int c) {
   if(r < 0) {
-    cout << "ERROR: searchSpot, can not find a spot to a negative value! -_-" << endl;
-    exit(1);
-
-    return 1000000;
+    return 99;
   }
 
   for(int i = 0; i < 24; i++) {
@@ -132,38 +199,33 @@ int searchSpot(int r, int c) {
   }
   cout << "ERROR: searchSpot, can not find this spot! -_-" << endl;
   exit(1);
-  return 10000000;
+  return 99;
 }
 
-void addPieceForPlayer(color c) {
+void addPieceForPlayer() {
   numberOfPieces++;
-  switch(c) {
-    case black:
-      numBlack++;
-      break;
-    case white:
-      numWhite++;
-      break;
-  }
 }
 
 void botPlays(color c) {
-  state* old  = cstate;
+  state* old = nullptr;
+  if(ostate)
+    old = ostate;
+
+  ostate  = cstate;
   pnode  root = new node(cstate, nullptr);
   action* a;
 
   a      = alphaBetaSearch(root, c);
-  cstate = old->makeState(a);
-  /*for(auto it : lnodes) {
-    delete it;
-    lnodes.clear();
-  }*/
+  cout << a->toString() << endl;
+  cstate = ostate->makeState(a);
+
   lnodes.remove_if(deleteAll);
-  delete root;
+  if(old)
+    delete old;
 }
 
-int numPlayerPieces() {
-  switch(mcolor) {
+int numPlayerPieces(color c) {
+  switch(c) {
     case black:
       return numBlack;
       break;
@@ -176,7 +238,7 @@ int numPlayerPieces() {
 }
 
 void makeMove() {
-  switch(stage) {
+  switch(currentStage) {
     case placement:
       //
       break;
@@ -192,20 +254,26 @@ void makeMove() {
 void play(color c, state* st) {
   acolor         = c;
   cenemy         = invertColor(mcolor);
-  stage          = placement;
+  currentStage   = placement;
   cstate         = st;
-  bfly           = false;
-  wfly           = false;
+  flyBlack           = false;
+  flyWhite           = false;
   numberOfPieces = 0;
-  numBlack       = 0;
-  numWhite       = 0;
+  cntp           = 0;
 
-//int cnt = 0;
   while(true) {
-    //system("clear");
+    if(currentStage == placement && numberOfPieces == 18) {
+      currentStage = movement;
+    }
+    else {
+      addPieceForPlayer();
+    }
+   MILL:
     if(acolor == mcolor) {
-      //cout << "********************************* player" << endl;
+      //cout << "********************************* player1" << endl;
       playerPlays();
+      //cout << "********************************* player2" << endl;
+      system("clear");
     }
     else {
       //cout << "111111111111111111111111111111111 bot" << endl;
@@ -214,22 +282,37 @@ void play(color c, state* st) {
       //cout << "222222222222222222222222222222222 bot" << endl;
     }
 
+    if(currentStage == mill) {
+      currentStage = ostage;
+    }
+
     if(hasWinner()) break;
 
-    // has a new mill
-    
-    if( == 18) {
-      stage = movement;
+    if(thereIsAMill(acolor)) {
+      ostage = currentStage;
+      currentStage  = mill;
+      goto MILL;
     }
-    
-    acolor = invertColor(acolor);
 
-    //cnt++; if(cnt > 6) break;    
+    acolor = invertColor(acolor);
+  }
+
+  if(winner == black) {
+    cout << "black is the winner!" << endl;
+  }
+  else if(winner == white) {
+    cout << "white is the winner!" << endl;
+  }
+  else {
+    cout << "draw game!" << endl;
   }
 }
 
 void playerPlays() {
-  system("clear");
+  char fWhite = flyWhite ? '*' : ' ';
+  char fBlack = flyBlack ? '*' : ' ';
+  cout << "White" << fWhite << ": " << numWhite << " | Black" 
+       << fBlack << ": " << numBlack << endl;
   cstate->print();
   readMove();
   if(!isAValidMove()) {
@@ -237,36 +320,40 @@ void playerPlays() {
     exit(1);
   }
 
-  state* old = cstate;
+  state* old = nullptr;
+  if(ostate)
+   old = ostate;
+  ostate = cstate;
+
   int    t, f;
   t = searchSpot(trow, tcol);
-  f = searchSpot(trow, tcol);
+  f = searchSpot(drow, dcol);
 
-  action* a = new action(returnKindOfAction(stage), mcolor, f, t);
-  cstate    = old->makeState(a);
+  action* a = new action(returnKindOfAction(currentStage), mcolor, f, t);
+  cstate    = ostate->makeState(a);
+  //cout << a->toString() << endl;
 
   delete a;
-  delete old;
+  if(old)
+    delete old;
 }
 
 void readMove() {
-  switch(stage) {
+  switch(currentStage) {
     case placement:
       cout << "placement (" 
-           << (9-numPlayerPieces()) 
+           << (9-cntp) 
            << "):\nrow column" 
            << endl;
       cin >> trow;
       cin >> tcol;
       drow = -1;
       dcol = -1;
-
+      cntp++;
       if(!verify(trow, tcol)) {
         cout << "ERROR: readMove, wrong place." << endl;
         exit(1);
       }
-
-      addPieceForPlayer(mcolor);
 
       break;
     case movement:

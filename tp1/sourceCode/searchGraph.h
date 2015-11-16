@@ -29,4 +29,5 @@ list<pnode> successorPlacement(pnode n, color c);
 list<pnode> successorMovement(pnode n, color c);
 list<pnode> successorMill(pnode n, color c);
 list<pnode> successor(pnode n, color c);
+int         successorMovementNumber(pnode n, color c, bool fly);
 #endif

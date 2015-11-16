@@ -57,40 +57,103 @@ list<pnode> successorMovement(pnode n, color c) { // considerar vôo
   action*     a;
   pnode       pn;
 
-  for(int i = 0; i < 24; i++) { // iterate over all spots in the board
-    if(n->st->p[i] == c) { // select all of spots with the colors that I want
-      for(auto it : scenario[i]->neighbors) { // iterate over neighbors spots
-        if(n->st->spotIsFree(it->id)) { // select free spots to move
-          a  = new action(move_piece, c, i, it->id);
-          st = n->st->makeState(a);
-          pn  = n->makeNode(st, a);
-          n->succ.push_back(pn);
-          ls.push_back(pn);
-          //st->print();
+  if(!st->getFly(c)) {
+    for(int i = 0; i < 24; i++) { // iterate over all spots in the board
+      if(n->st->p[i] == c) { // select all of spots with the colors that I want
+        for(auto it : scenario[i]->neighbors) { // iterate over neighbors spots
+          if(n->st->spotIsFree(it->id)) { // select free spots to move
+            a  = new action(move_piece, c, i, it->id);
+            st = n->st->makeState(a);
+            pn  = n->makeNode(st, a);
+            n->succ.push_back(pn);
+            ls.push_back(pn);
+            //st->print();
+          }
         }
       }
     }
   }
+  else {
+    for(int i = 0; i < 24; i++) {
+      if(n->st->p[i] == nocolor) {
+        for(int j = 0; j < 24; j++) {
+          if(n->st->p[j] == c) {
+            a  = new action(move_piece, c, j, i);
+            st = n->st->makeState(a);
+            pn  = n->makeNode(st, a);
+            n->succ.push_back(pn);
+            ls.push_back(pn);
+          }
+        }
+      } 
+    }
+  }
+
   return ls;
 }
 
 list<pnode> successorMill(pnode n, color c) {
-  list<pnode> all;
-  list<pnode> pieces;
-  state*      st;
-  action*     a;
-  pnode       pn;
-  color       enemy = invertColor(c);
-
-  /*for(int i = 0; i < 24; i++) { // iterate over all spots in the board
+  list<unsigned> all;
+  list<unsigned> outOfMills;
+  list<pnode>    ls;
+  state*         st;
+  action*        a;
+  pnode          pn;
+  color          enemy = invertColor(c);
+ 
+  for(int i = 0; i < 24; i++) { // iterate over all spots in the board
     if(n->st->p[i] == enemy) {
-      if(!matchMill()) {
-
+      if(!n->st->inMill(i, enemy)) {
+        outOfMills.push_back(i);
       }
-      all.push_back(n);
+      all.push_back(i);
     }
-  }*/
-  return all;
+  }
+
+  if(outOfMills.size() != 0) {
+    for(auto it : outOfMills) {
+      a  = new action(remove_piece, enemy, 99, it);
+      st = n->st->makeState(a);
+      pn = n->makeNode(st, a);
+      n->succ.push_back(pn);
+      ls.push_back(pn);
+    }
+  }
+  else {
+    for(auto it : all) {
+      a  = new action(remove_piece, enemy, 99, it);
+      st = n->st->makeState(a);
+      pn = n->makeNode(st, a);
+      n->succ.push_back(pn);
+      ls.push_back(pn);
+    }
+  }
+
+  return ls;
+}
+
+int successorMovementNumber(pnode n, color c, bool fly) { // considerar vôo
+  int ret = 0;
+  
+  if(fly) {
+    for(int i = 0; i < 24; i++) {
+      if(n->st->p[i] == nocolor)
+        ret++;
+    }
+  }
+  else {
+    for(int i = 0; i < 24; i++) { // iterate over all spots in the board
+      if(n->st->p[i] == c) { // select all of spots with the colors that I want
+        for(auto it : scenario[i]->neighbors) { // iterate over neighbors spots
+          if(n->st->spotIsFree(it->id)) { // select free spots to move
+            ret++;
+          }
+        }
+      }
+    }
+  }
+
+  return ret;
 }
 
 node::node(state* st_, action* act_) : st(st_), act(act_), shp(0), x(false) {

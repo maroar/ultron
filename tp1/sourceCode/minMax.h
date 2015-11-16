@@ -3,7 +3,7 @@
 
 #include "searchGraph.h"
 
-#define MAX_DEPTH 3
+#define MAX_DEPTH 2
 #define PINF  1000000000
 #define NINF -1000000000
 

@@ -8,17 +8,25 @@
 
 using namespace std;
 
-bool state::inMill(unsigned i, color c) {
+bool state::getFly(color c) {
+  if(c == white)
+    return flyWhite;
+  else
+    return flyBlack; 
+}
+
+bool state::inMill(int x, color c) {
   for(int i = 0; i < 16; i++) {
     if(p[mills[i][0]->id] == c &&
        p[mills[i][1]->id] == c &&
        p[mills[i][2]->id] == c) {
-      if((mills[i][0]->id) || (mills[i][1]->id == i) || (mills[i][2]->id == i) )
+      if((mills[i][0]->id) == x || (mills[i][1]->id == x) || (mills[i][2]->id == x) ) {
         return true;
-      else
-        return false;
+      }
     }
   }
+
+  return false;
 }
 
 bool state::matchMill(unsigned i, color c) {
@@ -35,7 +43,18 @@ bool state::spotIsFree(unsigned i) {
 }
 
 int state::getScoreMill(color c) {
-  return 1;
+  if(score != 1) {
+    return score;
+  }
+
+  color e = invertColor(c);
+  score   =  0;
+  score  += 2*pointsForPlaces(c);
+  //score  += 2*pointsForMills(c);
+  score  -= pointsForPlaces(e);
+  //score  -= pointsForMills(e);
+
+  return score;
 }
 
 int state::getScoreMove(color c) {
@@ -45,10 +64,10 @@ int state::getScoreMove(color c) {
 
   color e = invertColor(c);
   score   =  0;
-  score  += pointsForPlaces(c);
-  //score  += 2*pointsForMills(c);
-  //score  -= pointsForPlaces(e);
-  //score  -= pointsForMills(e);
+  score  += 2*pointsForPlaces(c);
+  score  += 2*pointsForMills(c);
+  score  -= pointsForPlaces(e);
+  score  -= pointsForMills(e);
 
   return score;
 }
@@ -61,9 +80,9 @@ int state::getScorePlacement(color c) {
   color e = invertColor(c);
   score   =  0;
   score  += 2*pointsForPlaces(c);
-  //score  += 2*pointsForMills(c);
-  //score  -= pointsForPlaces(e);
-  //score  -= pointsForMills(e);
+  score  += 2*pointsForMills(c);
+  score  -= pointsForPlaces(e);
+  score  -= pointsForMills(e);
   
   return score;
 }
@@ -140,18 +159,19 @@ state* state::makeState(action* a) {
   for(int i = 0; i < 24; i++) {
     st->p[i] = p[i];
   }
-  switch(a->kind) {
-    case put_piece:
-      st->put(a);
-      break;
-    case move_piece:
-      st->move(a);
-      break;
-    case remove_piece:
-      st->remove(a);
-      break;
+  if(a) {
+    switch(a->kind) {
+      case put_piece:
+        st->put(a);
+        break;
+      case move_piece:
+        st->move(a);
+        break;
+      case remove_piece:
+        st->remove(a);
+        break;
+    }
   }
-
   return st;
 }
 

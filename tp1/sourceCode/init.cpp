@@ -61,13 +61,13 @@ void printMColor() {
 }
 
 void printMove(unsigned index) {
-  if(oldmove[index].player.compare("none") == 0) {
+  /*if(oldmove[index].player.compare("none") == 0) {
     cout << "none" << endl;
     return;
   }
   cout << oldmove[index].stage << " ";
   cout << oldmove[index].row << " ";
-  cout << oldmove[index].column << endl;
+  cout << oldmove[index].column << endl;*/
 }
 
 void readBoard() {
@@ -100,13 +100,34 @@ void readInputFile() {
 }
 
 void readMove(unsigned index) {
-  cin >> oldmove[index].player;
-  if(oldmove[index].player.compare("none") == 0) {
+  string str;
+
+  cin >> str;  
+  if(str.compare("none") == 0) {
     oldmove[index].none = true;
     return;
   }
+  if(str.compare("black") == 0) {
+    oldmove[index].player = black;
+  }
+  else {
+    oldmove[index].player = white;
+  }
+
+  cin >> str;
+  if(str.compare("placement") == 0) {
+    oldmove[index].stage = placement;
+  }
+  else if(str.compare("mill") == 0) {
+    oldmove[index].stage = mill;
+  }
+  else {
+    oldmove[index].stage = movement;
+    cin >> oldmove[index].orow;
+    cin >> oldmove[index].ocolumn;
+  }
+
   oldmove[index].none = false;
-  cin >> oldmove[index].stage;
   cin >> oldmove[index].row;
   cin >> oldmove[index].column;
 }

@@ -34,8 +34,10 @@ int maxValue(pnode n, int a, int b, unsigned p, color c) {
     it->shp = -1;
     v = max(v, minValue(it, a, b, p+1, invertColor(c)));
     //v = max(v, minValue(it, a, b, p+1, c));
-    if(v >= b)
+    if(v >= b) {
+      n->st->score = v;
       return v;
+    }
     a = max(a, v);
   }
   n->st->score = v;
@@ -54,8 +56,10 @@ int minValue(pnode n, int a, int b, unsigned p, color c) {
     it->shp = 1;
     v = min(v, maxValue(it, a, b, p+1, invertColor(c)));
     //v = min(v, maxValue(it, a, b, p+1, c));
-    if(v < a)
+    if(v < a) {
+      n->st->score = v;
       return v;
+    }
     b = min(b, v);
   }
   n->st->score = v;

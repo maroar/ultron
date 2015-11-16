@@ -21,7 +21,6 @@ void optLaunch() {
   
   /*cout << "graph name {" << endl;
   root->act = new action(put_piece, mcolor, 99, 99);
-  root->printDot();
   for(auto it : lnodes) {
     it->printDot();
   }
@@ -35,7 +34,7 @@ void optLaunch() {
 
 void optPlay() {
   createEmptyScenario();
-
+//printScenario();
   state* initial = new state();
   initial->init();
   char colorOpt;

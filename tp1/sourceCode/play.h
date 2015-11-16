@@ -17,7 +17,7 @@ bool      myColorCanfly();
 bool      verify(int r, int c);
 color     getActualColor();
 gameStage getStage();
-int       numPlayerPieces();
+int       numPlayerPieces(color c);
 int       searchSpot(int r, int c);
 void      botPlays(color c);
 void      makeMove();

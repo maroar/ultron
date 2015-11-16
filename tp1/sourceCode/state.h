@@ -17,7 +17,8 @@ struct state {
   state() : score(1), cntBlackMills(-1), cntWhiteMills(-1) {
     p.reserve(24);
   }
-  bool   inMill(unsigned i, color c);
+  bool   getFly(color c);
+  bool   inMill(int x, color c);
   bool   matchMill(unsigned i, color c);
   bool   spotIsFree(unsigned i);
   int    getScoreMill(color c);

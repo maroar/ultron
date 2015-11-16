@@ -22,18 +22,14 @@ kindOfAction returnKindOfAction(gameStage g) {
   }
 }
 
-/*string action::kindOfActionToString() {
-  switch(kind) {
-    case put_piece:
-      return "put";
-    case move_piece:
-      return "move " +;
-    case remove_piece:
-      return "remove";
-    default:
-      return "none";
-  }
-}*/
+string colorStr(color c) {
+  if(c == white)
+    return "white";
+  else if(c == black)
+    return "black";
+  else
+    return "nocolor";
+}
 
 void movePiece(unsigned orow, unsigned ocolumn, unsigned trow, unsigned tcolumn) {
   cout << orow << " " << ocolumn << " " << trow << " " << tcolumn; 
@@ -47,12 +43,41 @@ void putPiece(unsigned row, unsigned column) {
   cout << row << " " << column;
 }
 
-string action::toString() {
-  string str = "o: ";
-  str += to_string(o);
-  str += " t: ";
-  str += to_string(t);
+string kindOfActionToString(kindOfAction kind) {
+  switch(kind) {
+    case put_piece:
+      return "placement";
+    case move_piece:
+      return "movement";
+    case remove_piece:
+      return "mill";
+    default:
+      return "none";
+  }
+}
 
+string action::toString() {
+  int trow, tcolumn, orow, ocolumn;
+  trow    = scenario[t]->r;
+  tcolumn = scenario[t]->c;
+
+  string str = colorStr(acolor);
+  str += " ";
+  str += kindOfActionToString(kind);
+
+  if(kind == move_piece) {
+    orow    = scenario[o]->r;
+    ocolumn = scenario[o]->c;
+    str += " ";
+    str += to_string(orow);
+    str += " ";
+    str += to_string(ocolumn);
+  }
+
+  str += " ";
+  str += to_string(trow);
+  str += " ";
+  str += to_string(tcolumn);
   return str;
 }
 
